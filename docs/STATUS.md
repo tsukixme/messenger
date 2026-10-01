@@ -6,14 +6,14 @@
 | Номер | Исполнитель | Статус | Отчёт |
 |---|---|---|---|
 | T11 | Codex; ревью Claude по сообщению владельца | Готово, PR #1 слит; merge проверен через GitHub | [T11-codex.md](reports/T11-codex.md) |
-| S1 | Владелец: установка; Codex: инструкции/приёмка | Владелец подтвердил запуск Ubuntu (tildes, 10.80.247.84); SSH без пароля не проверен, Docker не установлен | [S1-codex.md](reports/S1-codex.md) |
+| S1 | Владелец: установка; Codex: инструкции/приёмка | Ubuntu работает (tildes, 10.80.247.84); Docker подтверждён сборкой/запуском auth. SSH без пароля не проверен | [S1-codex.md](reports/S1-codex.md) |
 | [T22](tasks/T22-Claude.md) | Claude | Возвращено на доработку; основные риски подтверждены локально, Flutter-аудит/план неполны | [Ответ](reports/T22-Claude.md), [проверка Codex](reports/T22-codex-review.md) |
 | [T23](tasks/T23-Gemini-2.md) | Antigravity 2.0 / Gemini 2 | Возвращено на доработку: источники/условия, API и чек-листы требуют исправлений | [Ответ](reports/T23-Gemini-2.md), [проверка Codex](reports/T23-codex-review.md) |
 | [T24](tasks/T24-Gemini-1.md) | Antigravity IDE / Gemini 1 | Возвращено на доработку после самостоятельной проверки текста; ВМ не передана | [Ответ](reports/T24-Gemini-1.md), [проверка Codex](reports/T24-codex-review.md) |
 | [T25](tasks/T25-Gemini-1.md) | Antigravity IDE / Gemini 1 | Исправления памятки подготовлены, ожидают передачи владельцем | Отчёт не поступил |
 | [T26](tasks/T26-Claude.md) | Claude | Завершение Flutter-аудита/отчёта; серверный пакет уже получен, повторная разработка auth не нужна | Исправленный отчёт не поступил |
 | [T27](tasks/T27-Gemini-2.md) | Antigravity 2.0 / Gemini 2 | Исправления инструкций и полных чек-листов подготовлены; ожидает передачи владельцем | Отчёт не поступил |
-| S2 | Codex | Пакет применён строго по README; [PR #1 сервера](https://github.com/tsukixme/messenger-server/pull/1) открыт как черновик. 13/13 pytest пройдены, проверка Docker не выполнена; развёртывание ждёт S1 | [S2-codex.md](https://github.com/tsukixme/messenger-server/blob/auth-hardening/docs/reports/S2-codex.md) |
+| S2 | Codex | [PR #1 сервера](https://github.com/tsukixme/messenger-server/pull/1): 13/13 pytest; Docker build — exit 0, отказ без секрета — exit 1 за 0,61 с. Черновик для ревью; полный стек не развёрнут | [S2-codex.md](https://github.com/tsukixme/messenger-server/blob/auth-hardening/docs/reports/S2-codex.md) |
 | S3 | Codex | Не начат; путь iOS требует согласования владельцем | — |
 | S4 | Codex | Не начат | — |
 | S5 | Codex; Claude по отдельным карточкам | Не начат; новых пакетов кода от Claude нет | — |
@@ -27,6 +27,8 @@ Gemini 1 не работает с ВМ: передачи ресурса не б�
 WA_APP_SECRET вне тестового режима. Затем предоставил готовый пакет
 auth-update.zip и поручил его применение Codex; дополнительных изменений
 сверх README не разрешено. Черновой PR открыт в ветке auth-hardening
-сервера; код пакета не редактировался, Docker-проверка ещё не выполнена.
+сервера; код пакета не редактировался. По следующему поручению выполнены
+сборка и проверка отказа контейнера без секрета на ВМ; управление ВМ
+возвращено владельцу. Полный compose up и интеграции не проверены.
 Еженедельное обновление включено в Codex; обновление по просьбе владельца
 также сохраняется. Непроверенные отчёты автоматически не принимаются.
