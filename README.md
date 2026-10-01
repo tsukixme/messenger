@@ -95,6 +95,24 @@ flutter build web --release
   **Please only the values, you really need**. If you e.g. only want
   to change the default homeserver, then only modify the `defaultHomeserver` key.
 
+### Tildes configuration (Android, iOS, web)
+
+The shared built-in server default is `AppConfig.defaultHomeserver` in
+`lib/config/app_config.dart`. Change the deployment domain in that one place
+and rebuild the clients. `config.sample.json` intentionally omits this value
+so copying the sample does not replace the shared default.
+
+The exact optional JSON/MDM key is `defaultHomeserver` (lowercase `s` in
+`server`); `defaultHomeServer` is not recognized. Explicit web `config.json`
+or managed configuration values retain their existing override behavior.
+`presetHomeserver` is a separate setting and is not the default server.
+
+For an iOS build, configure your own signing team and register Runner
+`kz.tildes.chat`, the two extension IDs with the same prefix, and App Group
+`group.kz.tildes.chat` for all three targets in Xcode. Existing upstream
+Firebase and signing settings require separate release configuration; the
+legacy ID-rotation options in `scripts/build-ios.sh` are not needed for Tildes.
+
 ### Desktop (Linux, Windows, macOS)
 
 * Enable Desktop support in Flutter: https://flutter.dev/desktop

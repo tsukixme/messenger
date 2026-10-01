@@ -1,6 +1,5 @@
 {
-  "applicationName": "FluffyChat",
-  "defaultHomeserver": "matrix.org",
+  "applicationName": "Tildes",
   "presetHomeserver": "",
   "welcomeText": "",
   "privacyUrl": "https://github.com/krille-chan/fluffychat/blob/main/PRIVACY.md",

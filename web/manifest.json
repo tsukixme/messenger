@@ -1,6 +1,6 @@
 {
-    "name": "FluffyChat",
-    "short_name": "FluffyChat",
+    "name": "Tildes",
+    "short_name": "Tildes",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FFFFFF",
