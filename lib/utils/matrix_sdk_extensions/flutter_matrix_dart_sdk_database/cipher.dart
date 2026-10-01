@@ -6,6 +6,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/utils/client_manager.dart';
@@ -20,7 +21,7 @@ const _passwordStorageKey = 'database_password';
 Future<String?> getDatabaseCipher() async {
   String? password;
 
-  const iosOptions = IOSOptions(groupId: 'group.im.fluffychat.app');
+  const iosOptions = IOSOptions(groupId: AppConfig.iosAppGroup);
 
   try {
     password = await FlutterSecureStorage(
