@@ -7,7 +7,8 @@ import 'dart:ui';
 
 abstract class AppConfig {
   // Shared fallback for Android, iOS and web; keep the deployment domain here.
-  static const String defaultHomeserver = 'your-name.ngrok-free.app';
+  static const String defaultHomeserver =
+      'herbicide-ninth-reliance.ngrok-free.dev';
   static const String iosAppGroup = 'group.kz.tildes.chat';
 
   static const Color primaryColor = Color(0xFF261386);
