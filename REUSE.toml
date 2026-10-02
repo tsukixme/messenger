@@ -69,6 +69,17 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2017-Present Fabiyamada"
 SPDX-License-Identifier = "CC-BY-4.0"
 
+# New Tildes vector resources; retain upstream logo attribution above.
+[[annotations]]
+path = [
+    "android/app/src/main/res/drawable/tildes_foreground.xml",
+    "android/app/src/main/res/mipmap-anydpi*/tildes_launcher.xml",
+    "android/app/src/main/res/values/tildes_colors.xml"
+]
+precedence = "override"
+SPDX-FileCopyrightText = "2026 Contributors to Tildes"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
 # Artwork
 [[annotations]]
 path = [

@@ -5,6 +5,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/utils/color_value.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
@@ -36,10 +37,16 @@ class ThemeController extends State<ThemeBuilder> {
   SharedPreferences? _sharedPreferences;
   ThemeMode? _themeMode;
   Color? _primaryColor;
+  bool _useSystemColors = false;
 
   ThemeMode get themeMode => _themeMode ?? ThemeMode.system;
 
-  Color? get primaryColor => _primaryColor;
+  Color? get primaryColor =>
+      _primaryColor ??
+      (_useSystemColors ? null : Color(AppSettings.colorSchemeSeedInt.value));
+
+  String get _systemColorSettingsKey =>
+      '${widget.primaryColorSettingsKey}_use_system_colors';
 
   static ThemeController of(BuildContext context) =>
       Provider.of<ThemeController>(context, listen: false);
@@ -50,12 +57,15 @@ class ThemeController extends State<ThemeBuilder> {
 
     final rawThemeMode = preferences.getString(widget.themeModeSettingsKey);
     final rawColor = preferences.getInt(widget.primaryColorSettingsKey);
+    final useSystemColors =
+        preferences.getBool(_systemColorSettingsKey) ?? false;
 
     setState(() {
       _themeMode = ThemeMode.values.singleWhereOrNull(
         (value) => value.name == rawThemeMode,
       );
       _primaryColor = rawColor == null ? null : Color(rawColor);
+      _useSystemColors = useSystemColors;
     });
   }
 
@@ -79,8 +89,10 @@ class ThemeController extends State<ThemeBuilder> {
         newPrimaryColor.hexValue,
       );
     }
+    await preferences.setBool(_systemColorSettingsKey, newPrimaryColor == null);
     setState(() {
       _primaryColor = newPrimaryColor;
+      _useSystemColors = newPrimaryColor == null;
     });
   }
 

@@ -37,7 +37,19 @@ class LoginScaffold extends StatelessWidget {
           return Scaffold(
             key: const Key('LoginScaffold'),
             appBar: appBar,
-            body: SafeArea(child: body),
+            body: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    theme.colorScheme.surface,
+                    theme.colorScheme.surfaceContainerLow,
+                  ],
+                ),
+              ),
+              child: SafeArea(child: body),
+            ),
             bottomNavigationBar: bottomNavigationBar,
           );
         }
@@ -59,7 +71,7 @@ class LoginScaffold extends StatelessWidget {
                 ParticleNetwork(
                   maxSpeed: 0.25,
                   particleColor: theme.colorScheme.primary,
-                  lineColor: theme.colorScheme.secondary,
+                  lineColor: theme.colorScheme.tertiary,
                 ),
               Column(
                 children: [

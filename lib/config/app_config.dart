@@ -11,7 +11,8 @@ abstract class AppConfig {
       'herbicide-ninth-reliance.ngrok-free.dev';
   static const String iosAppGroup = 'group.kz.tildes.chat';
 
-  static const Color primaryColor = Color(0xFF261386);
+  static const int colorSchemeSeed = 0xFF334420;
+  static const Color primaryColor = Color(colorSchemeSeed);
 
   static const Color chatColor = primaryColor;
   static const double messageFontSize = 16.0;
@@ -24,7 +25,7 @@ abstract class AppConfig {
   static const String schemePrefix = 'matrix:';
   static const String pushNotificationsChannelId = 'fluffychat_push';
   static const String pushNotificationsAppId = 'chat.fluffy.fluffychat';
-  static const double borderRadius = 18.0;
+  static const double borderRadius = 24.0;
   static const double spaceBorderRadius = 11.0;
   static const double columnWidth = 360.0;
 

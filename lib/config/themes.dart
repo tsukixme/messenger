@@ -45,11 +45,62 @@ abstract class FluffyThemes {
     Brightness brightness, [
     Color? seed,
   ]) {
-    final colorScheme = ColorScheme.fromSeed(
+    final seedColor = seed ?? Color(AppSettings.colorSchemeSeedInt.value);
+    var colorScheme = ColorScheme.fromSeed(
       brightness: brightness,
-      seedColor: seed ?? Color(AppSettings.colorSchemeSeedInt.value),
+      seedColor: seedColor,
       dynamicSchemeVariant: DynamicSchemeVariant.rainbow,
     );
+    if (seedColor == AppConfig.primaryColor) {
+      colorScheme = brightness == Brightness.light
+          ? colorScheme.copyWith(
+              primary: const Color(0xFF334420),
+              onPrimary: const Color(0xFFF7F5EE),
+              primaryContainer: const Color(0xFFDAE5CB),
+              onPrimaryContainer: const Color(0xFF24321A),
+              secondary: const Color(0xFF576B40),
+              secondaryContainer: const Color(0xFFE9EDD9),
+              onSecondaryContainer: const Color(0xFF29371E),
+              tertiary: const Color(0xFF806321),
+              onTertiary: const Color(0xFFFFF9E6),
+              tertiaryContainer: const Color(0xFFF3E6B9),
+              onTertiaryContainer: const Color(0xFF4F3C10),
+              surface: const Color(0xFFF7F5EE),
+              onSurface: const Color(0xFF1B2819),
+              onSurfaceVariant: const Color(0xFF56624F),
+              surfaceContainerLowest: const Color(0xFFFFFEFA),
+              surfaceContainerLow: const Color(0xFFF1F2E8),
+              surfaceContainer: const Color(0xFFEAEDDF),
+              surfaceContainerHigh: const Color(0xFFE2E7D5),
+              surfaceContainerHighest: const Color(0xFFD8DECC),
+              outline: const Color(0xFF829171),
+              outlineVariant: const Color(0xFFD9DECB),
+            )
+          : colorScheme.copyWith(
+              primary: const Color(0xFFB7CF8C),
+              onPrimary: const Color(0xFF253418),
+              primaryContainer: const Color(0xFF334420),
+              onPrimaryContainer: const Color(0xFFF7F5EE),
+              secondary: const Color(0xFFC1CEAE),
+              onSecondary: const Color(0xFF28321E),
+              secondaryContainer: const Color(0xFF2A3525),
+              onSecondaryContainer: const Color(0xFFE2EBD7),
+              tertiary: const Color(0xFFD9B96E),
+              onTertiary: const Color(0xFF35260B),
+              tertiaryContainer: const Color(0xFF493916),
+              onTertiaryContainer: const Color(0xFFF1DA9E),
+              surface: const Color(0xFF111A12),
+              onSurface: const Color(0xFFF7F5EE),
+              onSurfaceVariant: const Color(0xFFB7C2AE),
+              surfaceContainerLowest: const Color(0xFF0C120D),
+              surfaceContainerLow: const Color(0xFF172019),
+              surfaceContainer: const Color(0xFF1C271D),
+              surfaceContainerHigh: const Color(0xFF253026),
+              surfaceContainerHighest: const Color(0xFF2C382C),
+              outline: const Color(0xFF8C9883),
+              outlineVariant: const Color(0xFF3C4937),
+            );
+    }
     final isColumnMode = FluffyThemes.isColumnMode(context);
     final dividerColor = brightness == Brightness.dark
         ? colorScheme.surfaceContainerHighest
@@ -71,10 +122,18 @@ abstract class FluffyThemes {
         selectionHandleColor: colorScheme.secondary,
       ),
       inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppConfig.borderRadius / 2),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
+        filled: true,
+        fillColor: colorScheme.surfaceContainerLowest,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: colorScheme.outline),
         ),
-        contentPadding: const EdgeInsets.all(12),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: colorScheme.primary, width: 2),
+        ),
+        contentPadding: const EdgeInsets.all(18),
       ),
       chipTheme: ChipThemeData(
         showCheckmark: false,
@@ -86,8 +145,9 @@ abstract class FluffyThemes {
       ),
       appBarTheme: AppBarTheme(
         toolbarHeight: isColumnMode ? 72 : 56,
-        surfaceTintColor: isColumnMode ? colorScheme.surface : null,
-        backgroundColor: isColumnMode ? colorScheme.surface : null,
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: colorScheme.surface,
+        scrolledUnderElevation: 0,
         actionsPadding: isColumnMode
             ? const EdgeInsets.symmetric(horizontal: 16.0)
             : null,
@@ -102,9 +162,11 @@ abstract class FluffyThemes {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           side: BorderSide(width: 1, color: colorScheme.primary),
+          minimumSize: const Size(0, 52),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           shape: RoundedRectangleBorder(
             side: BorderSide(color: colorScheme.primary),
-            borderRadius: BorderRadius.circular(AppConfig.borderRadius / 2),
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
       ),
@@ -122,11 +184,15 @@ abstract class FluffyThemes {
           : const SnackBarThemeData(behavior: SnackBarBehavior.floating),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.secondaryContainer,
-          foregroundColor: colorScheme.onSecondaryContainer,
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
+          minimumSize: const Size(0, 52),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           elevation: 0,
           padding: const EdgeInsets.all(16),
-          textStyle: const TextStyle(fontSize: 16),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
     );

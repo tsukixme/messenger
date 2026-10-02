@@ -9,6 +9,7 @@ import 'package:fluffychat/pages/intro/flows/restore_backup_flow.dart';
 import 'package:fluffychat/utils/platform_infos.dart';
 import 'package:fluffychat/widgets/layouts/login_scaffold.dart';
 import 'package:fluffychat/widgets/matrix.dart';
+import 'package:fluffychat/widgets/tildes_mark.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -114,20 +115,27 @@ class IntroPage extends StatelessWidget {
                             padding: const EdgeInsets.all(32.0),
                             child: Hero(
                               tag: 'info-logo',
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(128),
-                                child: Image.asset(
-                                  './assets/logo/mini/logo_mini.png',
-                                  width: 128,
-                                  height: 128,
-                                ),
-                              ),
+                              child: const TildesMark(size: 120),
                             ),
                           ),
                           Text(
-                            L10n.of(context).appSubtitle,
+                            AppSettings.applicationName.value,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 20),
+                            style: theme.textTheme.headlineLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: -1,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Text(
+                              L10n.of(context).appSubtitle,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                color: theme.colorScheme.onSurfaceVariant,
+                              ),
+                            ),
                           ),
                           const SizedBox(height: 8),
                           Padding(
@@ -145,13 +153,7 @@ class IntroPage extends StatelessWidget {
                               crossAxisAlignment: .stretch,
                               children: [
                                 if (!hasPresetHomeserver)
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          theme.colorScheme.secondary,
-                                      foregroundColor:
-                                          theme.colorScheme.onSecondary,
-                                    ),
+                                  OutlinedButton(
                                     onPressed: () => context.go(
                                       '${GoRouterState.of(context).uri.path}/sign_up',
                                     ),
