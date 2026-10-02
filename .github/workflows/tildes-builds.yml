@@ -1,0 +1,171 @@
+# Облачные сборки Tildes: Android APK, веб-версия, iOS без подписи (.ipa).
+# Запуск вручную (Actions -> Tildes builds -> Run workflow) и при каждом push в main.
+# Готовые файлы: страница запуска -> раздел Artifacts внизу (хранятся 14 дней).
+name: Tildes builds
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tildes-builds-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Версия Flutter из .tool_versions.yaml (на 2026-10-01: 3.47.4).
+  # Шаг "Проверка версии" ниже падает, если файл проекта изменился: тогда
+  # поправь значение здесь, а не угадывай.
+  FLUTTER_VERSION: "3.47.4"
+
+jobs:
+  android:
+    name: Android APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Проверка версии Flutter
+        run: |
+          grep -q "$FLUTTER_VERSION" .tool_versions.yaml || {
+            echo "::error::Версия Flutter в .tool_versions.yaml не равна $FLUTTER_VERSION. Обнови FLUTTER_VERSION в workflow."
+            cat .tool_versions.yaml
+            exit 1
+          }
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - run: flutter pub get
+
+      - name: Сборка APK
+        # Для пилота достаточно debug-подписи. Если release требует ключ,
+        # которого в репозитории нет, собираем debug (файл больше, но
+        # ставится так же). Ключи и сертификаты в репозиторий не кладём.
+        run: |
+          flutter build apk --release || {
+            echo "::warning::release-сборка не удалась, собираю debug"
+            flutter build apk --debug
+          }
+
+      - name: Собрать файлы
+        run: |
+          mkdir -p out
+          find build/app/outputs/flutter-apk -name '*.apk' -exec cp {} out/ \;
+          ls -la out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tildes-android-apk
+          path: out/*.apk
+          retention-days: 14
+          if-no-files-found: error
+
+  web:
+    name: Веб-версия
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Проверка версии Flutter
+        run: |
+          grep -q "$FLUTTER_VERSION" .tool_versions.yaml || {
+            echo "::error::Версия Flutter в .tool_versions.yaml не равна $FLUTTER_VERSION."
+            exit 1
+          }
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - run: flutter pub get
+
+      - name: Rust nightly для WebAssembly
+        # FRB build-web использует -Z build-std и исходники стандартной библиотеки.
+        run: rustup toolchain install nightly --profile minimal --component rust-src --target wasm32-unknown-unknown
+
+      - name: Подготовка веб (vodozemac)
+        run: |
+          chmod +x scripts/prepare-web.sh
+          ./scripts/prepare-web.sh
+
+      - run: flutter build web --release
+
+      - name: Упаковать
+        run: |
+          mkdir -p out
+          (cd build/web && zip -qr ../../out/tildes-web.zip .)
+          ls -la out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tildes-web
+          path: out/tildes-web.zip
+          retention-days: 14
+          if-no-files-found: error
+
+  ios-unsigned:
+    name: iOS без подписи (.ipa)
+    runs-on: macos-latest
+    timeout-minutes: 75
+    # Сборка iOS в облаке может упасть из-за особенностей проекта (расширения,
+    # App Group). Это не должно мешать публикации APK и веб-версии.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Проверка версии Flutter
+        run: |
+          grep -q "$FLUTTER_VERSION" .tool_versions.yaml || {
+            echo "::error::Версия Flutter в .tool_versions.yaml не равна $FLUTTER_VERSION."
+            exit 1
+          }
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Цели Rust для iOS
+        run: rustup target add aarch64-apple-ios
+
+      - run: flutter pub get
+
+      - name: Сборка без подписи
+        run: flutter build ios --release --no-codesign
+
+      - name: Упаковать в .ipa
+        run: |
+          mkdir -p out/Payload
+          cp -R build/ios/iphoneos/Runner.app out/Payload/
+          (cd out && zip -qry Tildes-unsigned.ipa Payload && rm -rf Payload)
+          ls -la out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tildes-ios-unsigned
+          path: out/Tildes-unsigned.ipa
+          retention-days: 14
+          if-no-files-found: error
