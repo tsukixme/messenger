@@ -6,8 +6,7 @@ name: Tildes builds
 on:
   workflow_dispatch:
   push:
-    # Временно: первый запуск до слияния, вариант B владельца (T28).
-    branches: [ci-builds]
+    branches: [main]
 
 permissions:
   contents: read

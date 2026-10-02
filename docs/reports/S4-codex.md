@@ -3,100 +3,54 @@
 
 # S4 — сборки приложения и веб-версия
 
-Дата: 2026-10-02. **Подготовлены изменения и PR; S4 не завершён. Локальная подготовка web остановлена после двух неудачных попыток.**
+Дата: 2026-10-02. Android и web успешно собраны в CI. PR остаётся черновиком: публикация web на сервере и проверки устройств ещё не выполнены; слияние требует сообщения владельца «Claude одобрил».
 
 ## Сделано
 
-- Ветка `ci-builds` создана от чистого `main` приложения, исходный commit `b020e52c907390bb64d86e0045d00c59a86584bd`.
-- Единственное значение встроенного сервера заменено в `lib/config/app_config.dart`, `AppConfig.defaultHomeserver`: `herbicide-ninth-reliance.ngrok-free.dev`. Домен не дублируется в другом коде приложения.
-- Скопирован workflow Claude из `tildes-next.zip`: Android APK, web, iOS без подписи. Триггеры сохранены: `workflow_dispatch` и push в `main`; iOS — `continue-on-error: true`.
-- Одно обоснованное дополнение к workflow: web job устанавливает Rust nightly, `rust-src`, `wasm32-unknown-unknown`. FRB 2.13 использует nightly `-Z build-std`; исходный workflow устанавливал только stable. [FRB executor](https://raw.githubusercontent.com/fzyzcjy/flutter_rust_bridge/v2.13.0/frb_dart/lib/src/cli/build_web/executor.dart), [Cargo build-std](https://doc.rust-lang.org/cargo/reference/unstable.html#build-std).
-- Flutter 3.47.4 / Dart 3.13.3 установлены в локальном tooling проекта из официального Windows-архива, SHA256 сверён с release manifest. Версия совпадает с `.tool_versions.yaml`. Также подготовлены yq и отдельное Rust-окружение проекта; глобальный default host/toolchain не менялся.
-- Серверная конфигурация подготовлена отдельно: [messenger-server PR #3](https://github.com/tsukixme/messenger-server/pull/3). На ВМ она пока не применена, настоящий web build не опубликован.
-- Существующие иконки, авторы, лицензия и поведение входа сохранены. S5 и выбор способа подписания iOS не выполнялись.
+- Сервер пилота указан в одном месте: `lib/config/app_config.dart`, `AppConfig.defaultHomeserver` = `herbicide-ninth-reliance.ngrok-free.dev`.
+- Workflow из `tildes-next.zip` собирает Android APK, web zip и существующий unsigned iOS artifact. Flutter закреплён на 3.47.4, права `contents: read`, артефакты хранятся 14 дней.
+- Web устанавливает nightly, `rust-src`, `wasm32-unknown-unknown` и явно `cargo install wasm-pack --locked`, как поручено после T28. В успешном запуске установлен wasm-pack 0.15.0.
+- Android проверяет каждый APK через `apksigner verify --print-certs`. Владелец прямо утвердил внешний commit `1c4e507`: временный release-ключ по существующему signing config, Gradle `-Xmx4g -XX:MaxMetaspaceSize=1g`, target `android-arm64`. Приватный ключ создаётся в runner и не публикуется.
+- Владелец выбрал вариант B: временный push-триггер `ci-builds` позволил проверить сборки до merge. После успешных Android/web он удалён: окончательные триггеры — `workflow_dispatch` и push в `main`. Сами jobs совпадают с успешным commit; окончательный commit с отчётом и восстановленным триггером отдельно не собирался.
+- iOS job не изменялся. Иконки, авторы и AGPL сохранены; S5 и WhatsApp отложены.
 
-Все изменённые файлы этого PR: `lib/config/app_config.dart`, `.github/workflows/tildes-builds.yml`, `docs/reports/S4-codex.md`. Генерируемые plugin registrants восстановлены; `pubspec.lock` не изменён. SDK, журналы, вспомогательные файлы и секреты не входят в PR.
+Все изменённые файлы PR: `lib/config/app_config.dart`, `.github/workflows/tildes-builds.yml`, `docs/reports/S4-codex.md`. Зависимости/lockfile и код входа не менялись. REUSE для документов — отдельный [PR #3](https://github.com/tsukixme/messenger/pull/3); серверная публикация web — отдельный [messenger-server PR #3](https://github.com/tsukixme/messenger-server/pull/3), на ВМ пока не применённый.
 
 ## Вывод проверки
 
+Успешный [запуск 36970952993](https://github.com/tsukixme/messenger/actions/runs/36970952993), commit `1c4e5073880086f45349a70421ebe63d0b0f9224`:
+
 | Проверка | Результат |
 |---|---|
-| Официальный SDK и manifest | Flutter 3.47.4 stable, Dart 3.13.3; SHA256 архива совпал |
-| `flutter pub get --enforce-lockfile` | Exit 0; lockfile не изменён |
-| Исходный `flutter analyze --no-pub` | Exit 0, `No issues found!`, 26,4 с |
-| `flutter analyze --no-pub` после замены домена | Exit 0, `No issues found!`, 14,2 с; новых замечаний нет |
-| YAML workflow | Прочитан; pin Flutter, список jobs, триггеры и optional iOS проверены |
-| `scripts/prepare-web.sh`, попытка 1 | Exit 128: Git из Git Bash не разрешил github.com; компиляция не началась |
-| Проверка другим уже используемым Git | `ls-remote` нужного тега — exit 0; Windows DNS также разрешает github.com |
-| `scripts/prepare-web.sh`, попытка 2, с этим Git в PATH | Git clone успешен; FRB codegen 2.13.0 собран и установлен; затем exit 1, `FormatException: Unexpected extension byte` при `where.exe wasm-pack` |
-| `flutter test --no-pub` | Exit 1 до выполнения тестов: CMake-зависимость webcrypto не собрана; тесты не считаются пройденными |
-| `flutter build web --release` | Не запускался после неуспешной обязательной подготовки |
-| Tildes builds: android / web / ios-unsigned | Не запускались: новый workflow отсутствует в default branch |
-| Существующий upstream Pull Request Workflow | Сработал автоматически; `code_tests` завершился failure на `Check licenses`, build jobs — skipped; это не запуск нового Tildes builds |
-| APK на телефоне, браузерная авторизация, обмен между двумя устройствами | Не проверены; это не заменяется успешной Matrix API-проверкой S3 |
+| [Android job](https://github.com/tsukixme/messenger/actions/runs/36970952993/job/110724612597) | Success; `assembleRelease`, `app-release.apk` 102 994 755 байт; debug fallback не использован |
+| Проверка подписи | Success; `apksigner verify --print-certs`, сертификат Tildes Pilot |
+| [Web job](https://github.com/tsukixme/messenger/actions/runs/36970952993/job/110724612967) | Success; prepare-web и `flutter build web --release`, ZIP опубликован |
+| Неизменённый iOS job | Success автоматически; unsigned artifact не проверялся на устройстве |
+| Скачанные Android/web артефакты | SHA-256 внешних ZIP совпали с digest GitHub; APK извлечён и проверен через aapt/ZIP |
+| APK | Название `Tildes`, package `kz.tildes.chat`, min SDK 24, target SDK 36; `libflutter.so` и `libapp.so` только `arm64-v8a` |
+| YAML / shell | YAML прочитан, все run-блоки прошли `bash -n`; jobs совпадают с успешным commit, iOS сохранён |
+| Analyze | Ранее до/после единственной правки домена: `No issues found!`; код приложения с тех пор не менялся |
+| REUSE / анализ / тесты | В отдельном [Linux code_tests PR #3](https://github.com/tsukixme/messenger/actions/runs/36969521746/job/110720360494): Check licenses success, анализ без замечаний, 4/4 Flutter tests |
+| Web smoke | Локально открыт первый успешный web-артефакт: стартовый экран Tildes, JS ошибок нет; предупреждение FRB о cross-origin headers. Между успешными web-запусками код lib/web не менялся |
 
-Полный traceback завершения второй попытки подготовки web:
+Артефакты второго запуска:
 
-```text
-flutter_rust_bridge_codegen build-web --dart-root dart --rust-root $(readlink -f rust) --release
-> where.exe wasm-pack (pwd: null, env: null)
-Unhandled exception:
-FormatException: Unexpected extension byte (at offset 0)
-#0      _Utf8Decoder.convertChunked (dart:convert-patch/convert_patch.dart:1963:7)
-#1      _Utf8ConversionSink.addSlice (dart:convert/string_conversion.dart:313:28)
-#2      _Utf8ConversionSink.add (dart:convert/string_conversion.dart:309:5)
-#3      _ConverterStreamEventSink.add (dart:convert/chunked_conversion.dart:70:18)
-#4      _SinkTransformerStreamSubscription._handleData (dart:async/stream_transformers.dart:115:24)
-#5      _RootZone.runUnaryGuarded (dart:async/zone.dart:963:10)
-#6      _BufferingStreamSubscription._sendData (dart:async/stream_impl.dart:381:11)
-#7      _BufferingStreamSubscription._add (dart:async/stream_impl.dart:312:7)
-#8      _SyncStreamControllerDispatch._sendData (dart:async/stream_controller.dart:798:19)
-#9      _StreamController._add (dart:async/stream_controller.dart:663:7)
-#10     _StreamController.add (dart:async/stream_controller.dart:618:5)
-#11     _Socket._onData (dart:io-patch/socket_patch.dart:2906:41)
-#12     _RootZone.runUnaryGuarded (dart:async/zone.dart:963:10)
-#13     _BufferingStreamSubscription._sendData (dart:async/stream_impl.dart:381:11)
-#14     _BufferingStreamSubscription._add (dart:async/stream_impl.dart:312:7)
-#15     _SyncStreamControllerDispatch._sendData (dart:async/stream_controller.dart:798:19)
-#16     _StreamController._add (dart:async/stream_controller.dart:663:7)
-#17     _StreamController.add (dart:async/stream_controller.dart:618:5)
-#18     new _RawSocket.<anonymous closure> (dart:io-patch/socket_patch.dart:2344:31)
-#19     _NativeSocket.issueReadEvent.issue (dart:io-patch/socket_patch.dart:1679:14)
-#20     _microtaskLoop (dart:async/schedule_microtask.dart:40:35)
-#21     _startMicrotaskLoop (dart:async/schedule_microtask.dart:49:5)
-#22     _runPendingImmediateCallback (dart:isolate-patch/isolate_patch.dart:127:13)
-#23     _RawReceivePort._handleMessage (dart:isolate-patch/isolate_patch.dart:193:5)
-Error: Fail to execute command, please see logs above for details.
-```
+- [Android APK](https://github.com/tsukixme/messenger/actions/runs/36970952993/artifacts/11211308320). SHA-256 ZIP: `c7e89ff7bd294da5003280f8faa606545c899328ecdc54b6b23d24cf1e08a3a6`; извлечённого APK: `bb7f421133fc383bb8615d8565e81965fd2451225a68fe0dda2584c358d55cac`.
+- [Web ZIP](https://github.com/tsukixme/messenger/actions/runs/36970952993/artifacts/11211762838). SHA-256 внешнего ZIP: `869c193a4c46dbac938c87a7624ce1e103b04d4f5b47392e7c347b6b41890670`.
 
-Ошибка `flutter test`:
-
-```text
-Building assets for package:webcrypto failed.
-Exception: Failed to generate CMake project: CMake Error at CMakeLists.txt:19 (project):
-  Generator
-    Ninja
-  does not support platform specification, but platform
-    x64
-  was specified.
-CMake Error: CMAKE_C_COMPILER not set, after EnableLanguage
-CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
-Building native assets failed. See the logs for more details.
-```
+История CI: [первый запуск 36969567480](https://github.com/tsukixme/messenger/actions/runs/36969567480) дал зелёный web, но Android release не нашёл `dummy.keystore`, а debug fallback завершился `JetifyTransform / Java heap space` в `checkDebugDuplicateClasses`. Полный лог сохранён локально. Следующий запуск с одобренным владельцем внешним патчем успешен: двух подряд неудач на одной ошибке не было.
 
 ## Проблемы
 
-- Существующие upstream PR checks также не зелёные: [Pull Request Workflow](https://github.com/tsukixme/messenger/actions/runs/36966790611) остановился на `Check licenses`, зависимые сборки пропущены; [Matrix Notification](https://github.com/tsukixme/messenger/actions/runs/36966790805) завершился failure на отправке уведомления. Эти workflows в данном PR не менялись. Детальные job logs через API дали HTTP 401; точная причина проверки лицензий не установлена. Ошибки переданы в карточку Claude; ручной re-run не выполнялся.
-- Новый workflow нельзя впервые запустить вручную из одной PR-ветки: GitHub требует наличие `workflow_dispatch` в default branch. [Документация GitHub](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow). Поэтому заявление о зелёных сборках пока было бы неверным.
-- Вариант A: после ревью Claude и явного подтверждения владельца слить workflow в `main`, затем вручную выполнить предусмотренные Ubuntu/macOS jobs. Вариант B: отдельно согласовать временный ограниченный trigger на PR/ветку для проверки до merge. В этом PR выбранный Claude набор триггеров сохранён; новый trigger молча не добавлялся.
-- Подготовка Windows web провалилась дважды на разных стадиях. По правилу владельца операция остановлена. Третья попытка требует разрешения продолжить. Возможные пути — отдельно проверенный обход вывода `where.exe` в локальном процессе или получение web-артефакта Ubuntu CI; менять Dart/FRB зависимость без решения архитектора нельзя.
-- `flutter doctor` подтвердил отсутствие Visual Studio C++ и JDK в текущем окружении; Windows native tests не подтверждены. Отдельную проблему CMake Ninja/x64 нельзя исправлять переписыванием приложения. Установка Build Tools/согласия и выбор окружения требуют отдельного решения.
-- Android workflow сохраняет предусмотренный fallback release → debug. Зелёный job сам по себе не доказывает успешный release: в отчёте после запуска нужно указать, какой APK собран. Не подключались сертификаты или ключи релизной подписи.
-- Бесплатный ngrok может показать Visit Site в браузере. Фактическое поведение web ещё не проверено.
+- APK использует новый временный ключ при каждом запуске; обычное обновление поверх другой сборки может потребовать удаления приложения и потери его локальных данных. Вариант явно выбран владельцем. Постоянный ключ для обновлений/публикации — отдельное решение. Альтернатива debug для всех архитектур с увеличенным heap обсуждена, владелец её не выбрал.
+- Поддерживаемая архитектура приложения — arm64. Некоторые библиотеки плагинов включены также для других ABI: `aapt native-code` перечисляет четыре ABI, но Flutter engine и скомпилированное приложение имеются только для arm64; поддержку остальных это не подтверждает.
+- Общие upstream проверки PR #2 могут оставаться красными, пока отдельное правило REUSE из PR #3 не попадёт в main. Зелёные Tildes builds не означают, что все проверки PR #2 зелёные. Matrix Notification не менялся.
+- Локальная Windows prepare-web ранее остановлена после двух ошибок на разных стадиях (DNS Git Bash, затем FRB UTF-8/where.exe); дальнейшие попытки не выполнялись. Windows Flutter tests остановились до выполнения тестов из-за webcrypto/CMake. Ubuntu CI подтверждён отдельно.
+- Предупреждение FRB о cross-origin headers требует отдельного серверного ревью. Стартовый экран не подтверждает работу E2EE, media, входа и обмена сообщениями в браузере. Заголовки рабочего nginx не менялись.
+- APK на телефоне, обмен между двумя устройствами и установка iOS не проверены. Несигнированный iOS artifact сам по себе не подтверждает установку на iPhone. Настоящий web build на публичном сервере пока не опубликован.
 
 ## Что дальше
 
-1. Claude ревьюит оба S4 PR и замечания окружения. Владелец передаёт его ответ; merge выполняется только после явного «Claude одобрил» по правилам проекта.
-2. После разрешённого запуска проверить Android и web CI; для сбоя unsigned iOS сохранить полный лог и соблюдать лимит двух исправлений. Установку на iPhone неподписанный IPA сам по себе не подтверждает.
-3. Получить настоящий `build/web`, скопировать по строгому SSH на ВМ, применить серверный патч и проверить приложение, API и ngrok в браузере. Серверные аккаунты admin/demo1–demo4 уже созданы владельцем, S3 API-обмен принят.
-4. Владелец устанавливает APK и проверяет вход и обмен между двумя устройствами, вводя свои demo-пароли сам. Обновить отчёт и статус только после фактических результатов; S5 не выполнять.
+1. Получить ревью Claude по PR приложения #2, отдельному REUSE PR #3 и серверным PR. Слияние только после явного сообщения владельца «Claude одобрил».
+2. После разрешённой интеграции REUSE повторить общие PR-проверки при необходимости; build steps Android/web уже проверены на указанном commit. Optional tests job не добавлен ради минимального scope: существующий Linux code_tests проверен отдельно.
+3. После ревью опубликовать проверенный web build по серверному PR #3 и проверить публичную страницу, вход и обмен между устройствами. Решения по заголовкам и подписанию iOS сначала согласовать с владельцем. WhatsApp, шаги S3 6в/7/8 и S5 остаются отложенными.
