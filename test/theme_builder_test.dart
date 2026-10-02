@@ -33,6 +33,39 @@ void main() {
     expect(controller.primaryColor, selected);
   });
 
+  testWidgets('A legacy system color selection is preserved', (tester) async {
+    SharedPreferences.setMockInitialValues({
+      AppSettings.colorSchemeSeedInt.key: 0xFF6200EE,
+    });
+    await AppSettings.init(loadWebConfigFile: false);
+    await tester.pumpWidget(
+      ThemeBuilder(builder: (_, _, _) => const SizedBox()),
+    );
+    await tester.pumpAndSettle();
+    expect(
+      tester.state<ThemeController>(find.byType(ThemeBuilder)).primaryColor,
+      isNull,
+    );
+  });
+
+  testWidgets('An explicit brand choice overrides the legacy setting', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({
+      AppSettings.colorSchemeSeedInt.key: AppConfig.colorSchemeSeed,
+      'primary_color_use_system_colors': false,
+    });
+    await AppSettings.init(loadWebConfigFile: false);
+    await tester.pumpWidget(
+      ThemeBuilder(builder: (_, _, _) => const SizedBox()),
+    );
+    await tester.pumpAndSettle();
+    expect(
+      tester.state<ThemeController>(find.byType(ThemeBuilder)).primaryColor,
+      AppConfig.primaryColor,
+    );
+  });
+
   testWidgets('Explicit system colors persist after restart', (tester) async {
     SharedPreferences.setMockInitialValues({});
     await AppSettings.init(loadWebConfigFile: false);
