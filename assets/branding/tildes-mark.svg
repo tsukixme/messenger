@@ -1,0 +1,9 @@
+<!-- SPDX-FileCopyrightText: 2026 Contributors to Tildes -->
+<!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" width="108" height="108" viewBox="0 0 108 108">
+  <rect width="108" height="108" rx="28" fill="#334420"/>
+  <g fill="none" stroke="#D9B96E" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="3.5" d="M40 30H68Q80 30 80 42V64Q80 76 68 76H49L39 80L39 76Q28 75 28 64V42Q28 30 40 30Z"/>
+    <path stroke-width="4.5" d="M38 46C48 37 57 55 70 46M38 60C48 51 57 69 70 60"/>
+  </g>
+</svg>

@@ -3,8 +3,10 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/widgets/layouts/login_scaffold.dart';
+import 'package:fluffychat/widgets/tildes_mark.dart';
 import 'package:material_ui/material_ui.dart';
 
 import 'login.dart';
@@ -41,17 +43,18 @@ class LoginView extends StatelessWidget {
                 Center(
                   child: Hero(
                     tag: 'info-logo',
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(128),
-                      child: Image.asset(
-                        './assets/logo/mini/logo_mini.png',
-                        width: 128,
-                        height: 128,
-                      ),
-                    ),
+                    child: const TildesMark(size: 96),
                   ),
                 ),
                 const SizedBox(height: 16),
+                Text(
+                  AppSettings.applicationName.value,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: TextField(
@@ -97,7 +100,7 @@ class LoginView extends StatelessWidget {
                           controller.showPassword
                               ? Icons.visibility_off_outlined
                               : Icons.visibility_outlined,
-                          color: Colors.black,
+                          color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
                       hintText: '******',

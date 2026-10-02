@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import 'package:fluffychat/config/app_config.dart';
+import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/widgets/theme_builder.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -11,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   testWidgets('New installations use the brand color', (tester) async {
     SharedPreferences.setMockInitialValues({});
+    await AppSettings.init(loadWebConfigFile: false);
     await tester.pumpWidget(
       ThemeBuilder(builder: (_, _, _) => const SizedBox()),
     );
@@ -22,6 +24,7 @@ void main() {
   testWidgets('A previously selected color is preserved', (tester) async {
     const selected = Color(0xFF1565C0);
     SharedPreferences.setMockInitialValues({'primary_color': 0xFF1565C0});
+    await AppSettings.init(loadWebConfigFile: false);
     await tester.pumpWidget(
       ThemeBuilder(builder: (_, _, _) => const SizedBox()),
     );
@@ -32,6 +35,7 @@ void main() {
 
   testWidgets('Explicit system colors persist after restart', (tester) async {
     SharedPreferences.setMockInitialValues({});
+    await AppSettings.init(loadWebConfigFile: false);
     await tester.pumpWidget(
       ThemeBuilder(builder: (_, _, _) => const SizedBox()),
     );
