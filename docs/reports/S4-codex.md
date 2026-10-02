@@ -31,7 +31,8 @@
 | `scripts/prepare-web.sh`, попытка 2, с этим Git в PATH | Git clone успешен; FRB codegen 2.13.0 собран и установлен; затем exit 1, `FormatException: Unexpected extension byte` при `where.exe wasm-pack` |
 | `flutter test --no-pub` | Exit 1 до выполнения тестов: CMake-зависимость webcrypto не собрана; тесты не считаются пройденными |
 | `flutter build web --release` | Не запускался после неуспешной обязательной подготовки |
-| GitHub jobs android / web / ios-unsigned | Не запускались: новый workflow отсутствует в default branch |
+| Tildes builds: android / web / ios-unsigned | Не запускались: новый workflow отсутствует в default branch |
+| Существующий upstream Pull Request Workflow | Сработал автоматически; `code_tests` завершился failure на `Check licenses`, build jobs — skipped; это не запуск нового Tildes builds |
 | APK на телефоне, браузерная авторизация, обмен между двумя устройствами | Не проверены; это не заменяется успешной Matrix API-проверкой S3 |
 
 Полный traceback завершения второй попытки подготовки web:
@@ -85,6 +86,7 @@ Building native assets failed. See the logs for more details.
 
 ## Проблемы
 
+- Существующие upstream PR checks также не зелёные: [Pull Request Workflow](https://github.com/tsukixme/messenger/actions/runs/36966790611) остановился на `Check licenses`, зависимые сборки пропущены; [Matrix Notification](https://github.com/tsukixme/messenger/actions/runs/36966790805) завершился failure на отправке уведомления. Эти workflows в данном PR не менялись. Детальные job logs через API дали HTTP 401; точная причина проверки лицензий не установлена. Ошибки переданы в карточку Claude; ручной re-run не выполнялся.
 - Новый workflow нельзя впервые запустить вручную из одной PR-ветки: GitHub требует наличие `workflow_dispatch` в default branch. [Документация GitHub](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow). Поэтому заявление о зелёных сборках пока было бы неверным.
 - Вариант A: после ревью Claude и явного подтверждения владельца слить workflow в `main`, затем вручную выполнить предусмотренные Ubuntu/macOS jobs. Вариант B: отдельно согласовать временный ограниченный trigger на PR/ветку для проверки до merge. В этом PR выбранный Claude набор триггеров сохранён; новый trigger молча не добавлялся.
 - Подготовка Windows web провалилась дважды на разных стадиях. По правилу владельца операция остановлена. Третья попытка требует разрешения продолжить. Возможные пути — отдельно проверенный обход вывода `where.exe` в локальном процессе или получение web-артефакта Ubuntu CI; менять Dart/FRB зависимость без решения архитектора нельзя.
