@@ -89,3 +89,11 @@ IP-лимит и повтор после сбоя Synapse. Пакет приме
 - **Принято в части кода скриптов:** [PR #2 сервера](https://github.com/tsukixme/messenger-server/pull/2), пароль >=12 и проверка места до остановки контейнеров, 7/7 Linux tests. [Отчёт](https://github.com/tsukixme/messenger-server/blob/main/docs/reports/T28-codex.md); runtime ВМ не заменялся, реальные пользователи/копии в этих тестах не создавались.
 - **S4 полностью не принят:** web ещё не опубликован на сервере, вход/E2EE/обмен на устройствах и подписанная установка iOS не проверены. Web smoke первого артефакта подтвердил стартовый экран; предупреждение FRB о cross-origin headers требует отдельного ревью, nginx не менялся.
 - **Что дальше:** владелец передаёт Claude PR для ревью. Никаких слияний до сообщения владельца «Claude одобрил». WhatsApp, S3 6в/7/8 и S5 отложены.
+
+### 2026-10-02 · Одобренная интеграция
+
+Владелец сообщил «Claude одобрил» и явно разрешил порядок: messenger #3 → messenger #2 с обновлением main → messenger-server #2. Все три PR слиты в этом порядке; merge SHA: `2f7bf3f2090f189e02b20ae4afaba2e4d591c231`, `cdbcbcca46132351a1f58b9def6ecf0a9b420a10`, `baf2e46292ba3b12151444ade3aadac9597860aa`.
+
+**Принято:** обновлённый app PR #2 имеет успешный [code_tests](https://github.com/tsukixme/messenger/actions/runs/36974265753/job/110734573826), включая Check licenses / analyze / Flutter tests; серверные 7/7 tests повторены на Ubuntu. Автоматический [main build](https://github.com/tsukixme/messenger/actions/runs/36974966270) запущен на merge commit; пока выполняется.
+
+**Принято в части размещения файлов:** `./web` на ВМ содержит проверенный web из run `36970952993` / `1c4e507`, 133 файла с совпавшими SHA-256. Compose ps до/после: четыре сервиса Up, Synapse healthy. Nginx/Compose/runtime-скрипты не менялись. **Серверный PR #3 не слит по прямому запрету владельца**, публикация web и устройства пока не приняты. Подробности: [S4](reports/S4-codex.md).
