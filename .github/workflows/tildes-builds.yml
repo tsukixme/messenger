@@ -53,14 +53,26 @@ jobs:
 
       - run: flutter pub get
 
-      - name: Сборка APK
-        # Для пилота достаточно debug-подписи. Если release требует ключ,
-        # которого в репозитории нет, собираем debug (файл больше, но
-        # ставится так же). Ключи и сертификаты в репозиторий не кладём.
+      - name: Временный ключ подписи для пилота
+        # Проект (android/app/build.gradle.kts) ждёт файл dummy.keystore с этими
+        # данными. Создаём его на время сборки; в репозиторий он не попадает.
         run: |
-          flutter build apk --release || {
+          keytool -genkeypair -keystore android/app/dummy.keystore -storetype JKS \
+            -alias dummyAlias -storepass dummyStorePassword -keypass dummyPassword \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -dname "CN=Tildes Pilot,O=Tildes,C=KZ"
+
+      - name: Память для Gradle
+        # Без этого сборка debug падала с "Java heap space" при обработке библиотек Flutter.
+        run: printf '\norg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=1g\n' >> android/gradle.properties
+
+      - name: Сборка APK
+        # Только arm64: подходит почти всем телефонам и собирается быстрее.
+        # Если release не получится, запасной вариант: debug.
+        run: |
+          flutter build apk --release --target-platform android-arm64 || {
             echo "::warning::release-сборка не удалась, собираю debug"
-            flutter build apk --debug
+            flutter build apk --debug --target-platform android-arm64
           }
 
       - name: Собрать файлы
