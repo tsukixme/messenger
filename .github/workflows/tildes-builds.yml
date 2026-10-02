@@ -6,7 +6,8 @@ name: Tildes builds
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    # Временно: первый запуск до слияния, вариант B владельца (T28).
+    branches: [ci-builds]
 
 permissions:
   contents: read
@@ -68,6 +69,11 @@ jobs:
           find build/app/outputs/flutter-apk -name '*.apk' -exec cp {} out/ \;
           ls -la out
 
+      - name: Проверка подписи APK
+        run: |
+          APKSIGNER=$(ls "$ANDROID_HOME"/build-tools/*/apksigner | sort -V | tail -1)
+          for f in out/*.apk; do "$APKSIGNER" verify --print-certs "$f"; done
+
       - uses: actions/upload-artifact@v4
         with:
           name: tildes-android-apk
@@ -102,6 +108,9 @@ jobs:
       - name: Rust nightly для WebAssembly
         # FRB build-web использует -Z build-std и исходники стандартной библиотеки.
         run: rustup toolchain install nightly --profile minimal --component rust-src --target wasm32-unknown-unknown
+
+      - name: wasm-pack для FRB build-web
+        run: cargo install wasm-pack --locked
 
       - name: Подготовка веб (vodozemac)
         run: |
