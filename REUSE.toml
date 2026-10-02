@@ -46,6 +46,13 @@ path = [
 SPDX-FileCopyrightText = "Matrix Foundation"
 SPDX-License-Identifier = "Apache-2.0"
 
+# Tildes documentation
+[[annotations]]
+path = ["docs/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Contributors to Tildes"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
 # App Logo
 [[annotations]]
 path = [
