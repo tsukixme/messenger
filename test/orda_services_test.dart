@@ -7,8 +7,6 @@ import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/pages/sign_in/view_model/sign_in_view_model.dart';
 import 'package:fluffychat/utils/background_push.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart';
 import 'package:matrix/matrix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,22 +49,14 @@ void main() {
     'an empty gateway prevents pusher requests even with an endpoint',
     () async {
       await AppSettings.pushNotificationsGatewayUrl.setItem('');
-      var requests = 0;
-      final client = Client(
-        'Orda push test',
-        database: _UnusedDatabase(),
-        httpClient: MockClient((request) async {
-          requests++;
-          return http.Response('{}', 200);
-        }),
-      );
+      final client = _PusherClient();
       await BackgroundPush.clientOnly([client]).setupPusher(
         client: client,
         gatewayUrl:
             'https://matrix.gateway.unifiedpush.org/_matrix/push/v1/notify',
         token: 'test-token',
       );
-      expect(requests, 0);
+      expect(client.pusherRequests, 0);
     },
   );
 
@@ -85,4 +75,12 @@ void main() {
   });
 }
 
-class _UnusedDatabase extends Fake implements DatabaseApi {}
+class _PusherClient extends Fake implements Client {
+  int pusherRequests = 0;
+
+  @override
+  Future<List<Pusher>?> getPushers() async {
+    pusherRequests++;
+    return [];
+  }
+}
