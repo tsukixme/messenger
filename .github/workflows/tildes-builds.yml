@@ -2,6 +2,7 @@
 # Запуск вручную (Actions -> Orda builds -> Run workflow) и при каждом push в main.
 # Готовые файлы: страница запуска -> раздел Artifacts внизу (хранятся 14 дней).
 name: Orda builds
+run-name: Orda builds
 
 on:
   workflow_dispatch:
