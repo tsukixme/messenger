@@ -7,8 +7,8 @@ import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/l10n/l10n.dart';
 import 'package:fluffychat/utils/platform_infos.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -59,12 +59,14 @@ void main() {
     });
     await tester.pumpWidget(
       MaterialApp(
+        theme: ThemeData(useMaterial3: true),
         locale: const Locale('en'),
         localizationsDelegates: L10n.localizationsDelegates,
         supportedLocales: L10n.supportedLocales,
         home: Builder(
           builder: (context) => Scaffold(
             body: TextButton(
+              key: const Key('open_about'),
               onPressed: () => PlatformInfos.showDialog(context),
               child: const Text('About'),
             ),
@@ -73,28 +75,36 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('About'));
+    await tester.tap(find.byKey(const Key('open_about')));
     await tester.pumpAndSettle();
-    expect(find.text('Орда'), findsOneWidget);
-    expect(find.text(AppConfig.licenseAttribution), findsOneWidget);
-    expect(find.text('GitHub'), findsOneWidget);
+    final about = find.byType(AboutDialog);
+    expect(about, findsOneWidget);
+    expect(tester.widget<AboutDialog>(about).applicationName, 'Орда');
+    expect(
+      find.text(AppConfig.licenseAttribution, findRichText: true),
+      findsWidgets,
+    );
+    expect(find.text('GitHub', findRichText: true), findsWidgets);
 
-    await tester.tap(find.text('View licenses'));
+    await tester.tap(find.text('View licenses', findRichText: true).first);
     await tester.pumpAndSettle();
     expect(find.byType(LicensePage), findsOneWidget);
     final licenses = find.byType(LicensePage);
     expect(
       find.descendant(
         of: licenses,
-        matching: find.text(AppConfig.licenseAttribution),
+        matching: find.text(AppConfig.licenseAttribution, findRichText: true),
       ),
-      findsOneWidget,
+      findsWidgets,
     );
+    final github = find
+        .descendant(
+          of: licenses,
+          matching: find.text('GitHub', findRichText: true),
+        )
+        .first;
     final link = tester.widget<TextButton>(
-      find.descendant(
-        of: licenses,
-        matching: find.widgetWithText(TextButton, 'GitHub'),
-      ),
+      find.ancestor(of: github, matching: find.byType(TextButton)).first,
     );
     expect(link.onPressed, isNotNull);
     expect(AppConfig.sourceCodeUrl, 'https://github.com/tsukixme/messenger');
