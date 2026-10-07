@@ -1,7 +1,7 @@
-# Облачные сборки Tildes: Android APK, веб-версия, iOS без подписи (.ipa).
-# Запуск вручную (Actions -> Tildes builds -> Run workflow) и при каждом push в main.
+# Облачные сборки Орды: Android APK, веб-версия, iOS без подписи (.ipa).
+# Запуск вручную (Actions -> Orda builds -> Run workflow) и при каждом push в main.
 # Готовые файлы: страница запуска -> раздел Artifacts внизу (хранятся 14 дней).
-name: Tildes builds
+name: Orda builds
 
 on:
   workflow_dispatch:
@@ -77,7 +77,9 @@ jobs:
       - name: Собрать файлы
         run: |
           mkdir -p out
-          find build/app/outputs/flutter-apk -name '*.apk' -exec cp {} out/ \;
+          apk=build/app/outputs/flutter-apk/app-release.apk
+          if [ ! -f "$apk" ]; then apk=build/app/outputs/flutter-apk/app-debug.apk; fi
+          cp "$apk" out/Orda-arm64-release.apk
           ls -la out
 
       - name: Проверка подписи APK
@@ -87,7 +89,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: tildes-android-apk
+          name: orda-android-apk
           path: out/*.apk
           retention-days: 14
           if-no-files-found: error
@@ -133,13 +135,13 @@ jobs:
       - name: Упаковать
         run: |
           mkdir -p out
-          (cd build/web && zip -qr ../../out/tildes-web.zip .)
+          (cd build/web && zip -qr ../../out/orda-web.zip .)
           ls -la out
 
       - uses: actions/upload-artifact@v4
         with:
-          name: tildes-web
-          path: out/tildes-web.zip
+          name: orda-web
+          path: out/orda-web.zip
           retention-days: 14
           if-no-files-found: error
 
@@ -180,12 +182,12 @@ jobs:
         run: |
           mkdir -p out/Payload
           cp -R build/ios/iphoneos/Runner.app out/Payload/
-          (cd out && zip -qry Tildes-unsigned.ipa Payload && rm -rf Payload)
+          (cd out && zip -qry Orda-unsigned.ipa Payload && rm -rf Payload)
           ls -la out
 
       - uses: actions/upload-artifact@v4
         with:
-          name: tildes-ios-unsigned
-          path: out/Tildes-unsigned.ipa
+          name: orda-ios-unsigned
+          path: out/Orda-unsigned.ipa
           retention-days: 14
           if-no-files-found: error

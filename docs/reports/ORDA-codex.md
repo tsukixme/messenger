@@ -115,7 +115,7 @@
 - Сайт, политика и условия остаются пустыми заглушками до назначения владельцем. OIDC получает `null` для отсутствующих необязательных URL логотипа и документов; обязательный client URI при отсутствии website берётся из адреса развёрнутого web-приложения или репозитория Орды на мобильных платформах. Выдуманная политика конфиденциальности не добавлялась.
 - `LICENSE`, существующие SPDX-заголовки и copyright авторов сохранены. Новые исходники имеют SPDX; новые/заменённые изображения перечислены в отдельном блоке `REUSE.toml` с AGPL-3.0-or-later и Contributors to Орда. Неиспользуемые исторические исходники artwork сохраняют свои исходные атрибуции.
 - Dart-пакет `fluffychat`, все существующие ключи `chat.fluffy.*`, `kz.tildes.chat`, deep-link/OAuth схемы, App Group, pusher ID, Windows installer GUID и техническое имя executable не переименованы.
-- Значение `AppConfig.defaultHomeserver` / fallback `AppSettings.defaultHomeserver`: `herbicide-ninth-reliance.ngrok-free.dev`; `AppSettings.presetHomeserver` теперь использует тот же домен. После «Войти» приложение сразу выполняет существующий flow подключения к нашему серверу. Образец web config обновлён; собственные явно заданные preset остаются поддержаны.
+- Адрес `herbicide-ninth-reliance.ngrok-free.dev` хранится только в `AppConfig.defaultHomeserver`; обе настройки `defaultHomeserver` и `presetHomeserver` ссылаются на эту константу. После «Войти» приложение сразу выполняет существующий flow подключения к нашему серверу. Из образца web config убран дублирующий preset; собственные явно заданные preset остаются поддержаны.
 
 ## Иконки из присланных файлов
 
@@ -140,6 +140,9 @@
 
 ## Проверки и ограничения
 
+- По дополнительному поручению `.github/workflows/tildes-builds.yml` теперь называется **Orda builds**. Артефакты: `orda-android-apk` (файл `Orda-arm64-release.apk`), `orda-web` (архив `orda-web.zip`), `orda-ios-unsigned` (`Orda-unsigned.ipa`). Подпись пилотным ключом, проверка подписи, память Gradle и arm64 release/debug fallback из `1c4e507` сохранены. Имя выходного APK фиксированное; фактический режим сборки проверяется по журналу — сохранённый fallback может собрать debug.
+- Владелец вручную запустил прежний workflow: https://github.com/tsukixme/messenger/actions/runs/37595301763. После публикации переименования требуется свежий ручной запуск на `rebrand-orda`; результат относится к новому коммиту, а не к прежней сборке владельца.
+
 - Flutter 3.47.4, Dart 3.13.3 (версия проекта), установлены в рабочую папку.
 - `dart format --output=none --set-exit-if-changed` для всех изменённых Dart-файлов и нового теста — PASS.
 - `flutter gen-l10n` — успешно. В исходном проекте есть отсутствующие переводы, используются существующие fallback; новых пустых строк не добавлено.
@@ -159,6 +162,7 @@
 
 ## Изменённые файлы
 
+- `.github/workflows/tildes-builds.yml`
 - `.github/ISSUE_TEMPLATE/config.yml`
 - `.github/ISSUE_TEMPLATE/test_report.md`
 - `REUSE.toml`
