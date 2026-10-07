@@ -3,6 +3,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import 'package:fluffychat/config/setting_keys.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 
@@ -34,6 +35,7 @@ extension AuthFlows on FluffyChatTester {
     String password = user1Pw,
   }) async {
     await waitFor('Sign in');
+    await AppSettings.presetHomeserver.setItem('http://$homeserver');
     await tapOn('Sign in');
     await waitFor('Log in to http://$homeserver');
     await enterText(TextField, username, index: 0);
