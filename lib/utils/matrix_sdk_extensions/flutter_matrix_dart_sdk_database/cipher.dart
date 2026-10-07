@@ -21,7 +21,9 @@ const _passwordStorageKey = 'database_password';
 Future<String?> getDatabaseCipher() async {
   String? password;
 
-  const iosOptions = IOSOptions(groupId: AppConfig.iosAppGroup);
+  const iosOptions = IOSOptions(
+    groupId: AppConfig.iosDemo ? null : AppConfig.iosAppGroup,
+  );
 
   try {
     password = await FlutterSecureStorage(

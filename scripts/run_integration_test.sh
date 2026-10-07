@@ -6,8 +6,10 @@
 set -euo pipefail
 
 adb logcat -c
-adb logcat -v threadtime AndroidRuntime:E flutter:I FlutterJNI:I '*:E' &
+adb logcat -v threadtime AndroidRuntime:E flutter:I FlutterJNI:I libc:E '*:S' &
 logcat_pid=$!
 trap 'kill "$logcat_pid" 2>/dev/null || true' EXIT
 
-timeout --signal=INT --kill-after=30s 45m flutter test --verbose integration_test/mobile_test.dart
+timeout --signal=INT --kill-after=30s 45m flutter drive --verbose \
+  --driver=test_driver/integration_test.dart \
+  --target=integration_test/mobile_test.dart

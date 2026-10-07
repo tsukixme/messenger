@@ -13,6 +13,8 @@ abstract class AppConfig {
   static const String defaultHomeserver =
       'herbicide-ninth-reliance.ngrok-free.dev';
   static const String iosAppGroup = 'group.kz.tildes.chat';
+  // Personal Team builds keep encrypted data in their own app sandbox.
+  static const bool iosDemo = bool.fromEnvironment('ORDA_IOS_DEMO');
 
   static const Color primaryColor = Color(0xFF261386);
 

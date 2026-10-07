@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2026 Contributors to Orda
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+name: Orda iOS demo
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ios_demo:
+    name: iOS demo for personal signing
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: .tool_versions.yaml
+          cache: true
+      - uses: dtolnay/rust-toolchain@stable
+      - run: rustup target add aarch64-apple-ios
+      - run: flutter pub get
+      - name: Build the sandboxed demo
+        run: flutter build ios --release --no-codesign --dart-define=ORDA_IOS_DEMO=true
+      - name: Package for local signing
+        run: |
+          mkdir -p out/Payload
+          cp -R build/ios/iphoneos/Runner.app out/Payload/
+          rm -rf out/Payload/Runner.app/PlugIns
+          (cd out && zip -qry Orda-demo-unsigned.ipa Payload)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: orda-ios-demo
+          path: out/Orda-demo-unsigned.ipa
+          retention-days: 14
+          if-no-files-found: error

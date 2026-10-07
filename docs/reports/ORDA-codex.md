@@ -152,7 +152,14 @@
 - Добавлены два регрессионных теста `test/orda_branding_test.dart`: чтение старых/собственных настроек и отображение атрибуции со ссылкой в About/LicensePage. Их обычный локальный запуск заблокирован native hook `webcrypto`: не найден CMake. Результат тестов не объявляется успешным. `flutter pub get` получил зависимости и сгенерировал локализации, но его последний этап Windows plugins требует включённого symlink support; настройки Windows не менялись.
 - `reuse lint` — PASS после явного покрытия `fastlane/metadata` (symlink, который при Windows checkout представлен обычным текстовым файлом) существующей общей аннотацией. Лицензии и копирайты есть для всех проверяемых файлов.
 - Orda builds 37596540724 — PASS для всех трёх платформ. SHA-256 архива APK из метаданных GitHub: `7bf179c3e852ff31a050122888594fcdbee6dc2c469fe401ddb235aedca92ec7`. Это digest ZIP-артефакта, не самого APK.
-- На коммите `5e1b6ea` проверки кода (9 тестов), APK, iOS, macOS, web, Windows и оба Linux — PASS. Android integration остаётся в работе. Старый запуск 37592840492 остановлен общим таймаутом после установки APK, до вывода Dart-тестов; добавлены подробный вывод Flutter и журнал native ошибок для диагностики. Тесты и их утверждения сохранены. Итог проверяется по последнему коммиту: https://github.com/tsukixme/messenger/pull/5/checks.
+- На коммите `5e1b6ea` проверки кода (9 тестов), APK, iOS, macOS, web, Windows и оба Linux — PASS. Android integration остаётся в работе. Старый запуск 37592840492 остановлен общим таймаутом после установки APK, до вывода Dart-тестов. Диагностический запуск 37601075918 подтвердил старт Dart VM и подключение к тестовому устройству, после чего транспорт `flutter test` ожидал результат без запуска сценариев. Добавлен официальный адаптер `integrationDriver()` и тот же набор из пяти сценариев запускается через `flutter drive`; их утверждения сохранены. Журнал native ошибок собирается одним shell-скриптом, с очисткой фонового процесса и ненулевым выходом при ошибке/таймауте. Результат нового CI ещё ожидается. Итог проверяется по последнему коммиту: https://github.com/tsukixme/messenger/pull/5/checks.
+
+## Демонстрация iOS с Windows
+
+- По последующему запросу владельца добавлена отдельная сборка **Orda iOS demo**: артефакт `orda-ios-demo`, файл `Orda-demo-unsigned.ipa` для подписи через Sideloadly бесплатным Apple Account.
+- Флаг `ORDA_IOS_DEMO=true` хранит данные и ключ шифрования в собственном контейнере приложения, сохраняя алгоритм шифрования. App Groups не требуются, расширения исключены из демо-архива. Обычные сборки без флага продолжают использовать прежнюю конфигурацию.
+- [Инструкция](../IOS-DEMO.md). IPA не подписана; установка, вход и поведение на реальном iPhone требуют проверки владельцем. Наличие сборки не объявляет push и звонки в фоне работающими.
+- Запуск Orda builds 37596540724 сохранён: это источник Android APK, который запросил владелец. Новый ручной запуск этого workflow не выполнялся после его просьбы.
 
 ## Открытые вопросы владельцу
 
@@ -163,6 +170,8 @@
 
 ## Изменённые файлы
 
+- `.github/workflows/orda-ios-demo.yml`
+- `.github/workflows/integrate.yaml`
 - `.github/workflows/tildes-builds.yml`
 - `.github/ISSUE_TEMPLATE/config.yml`
 - `.github/ISSUE_TEMPLATE/test_report.md`
@@ -203,6 +212,7 @@
 - `assets/logo/mini/logo_mini.png`
 - `assets/logo/mini/logo_mono_mini.png`
 - `config.sample.json`
+- `docs/IOS-DEMO.md`
 - `docs/reports/ORDA-codex.md`
 - `integration_test/flows/auth_flows.dart`
 - `integration_test/utils/fluffy_chat_tester.dart`
@@ -328,3 +338,5 @@
 - `windows/runner/Runner.rc`
 - `windows/runner/main.cpp`
 - `windows/runner/resources/app_icon.ico`
+
+Дополнительно изменены: `lib/utils/matrix_sdk_extensions/flutter_matrix_dart_sdk_database/builder.dart`, `lib/utils/matrix_sdk_extensions/flutter_matrix_dart_sdk_database/cipher.dart`, `scripts/run_integration_test.sh`, `test_driver/integration_test.dart`.
