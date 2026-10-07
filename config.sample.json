@@ -1,6 +1,6 @@
 {
   "applicationName": "Орда",
-  "presetHomeserver": "",
+  "presetHomeserver": "herbicide-ninth-reliance.ngrok-free.dev",
   "welcomeText": "",
   "privacyPolicy": "",
   "audioRecordingNumChannels": 1,

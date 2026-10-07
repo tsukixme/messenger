@@ -3,9 +3,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/main.dart' as app;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../data/environment_constants.dart';
 
 extension type FluffyChatTester(WidgetTester tester) {
   static int _printCounter = 1;
@@ -121,6 +124,8 @@ extension on Object {
 
 extension StartTest on WidgetTester {
   Future<FluffyChatTester> startFluffyChatTest() async {
+    await AppSettings.init();
+    await AppSettings.presetHomeserver.setItem('http://$homeserver');
     app.main(['integration_test']);
 
     return FluffyChatTester(this);

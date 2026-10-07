@@ -26,7 +26,11 @@ abstract class UpdateNotifier {
   /// displays a banner with a download link. Only for Windows, as all other
   /// platforms get updated by their store or package manager.
   static Future<void> showUpdateAvailableBanner(BuildContext context) async {
-    if (!PlatformInfos.isWindows || !AppSettings.checkForUpdates.value) return;
+    if (AppConfig.latestReleaseApiUrl.isEmpty ||
+        !PlatformInfos.isWindows ||
+        !AppSettings.checkForUpdates.value) {
+      return;
+    }
 
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final l10n = L10n.of(context);

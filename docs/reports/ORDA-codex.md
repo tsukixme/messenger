@@ -13,7 +13,7 @@
 | `lib/utils/platform_infos.dart`, `lib/widgets/layouts/login_scaffold.dart` | «О приложении», исходный код и «Справка» вели в upstream | Исходники и справка ведут в репозиторий Орды / его issues. В «О приложении» и стандартной странице лицензий показана строка «Орда основана на FluffyChat (AGPL-3.0)» и действующая кнопка GitHub: https://github.com/tsukixme/messenger. |
 | `lib/pages/intro/intro_page.dart`, `lib/pages/settings/settings_view.dart`, `login_scaffold.dart` | Ссылка на `https://fluffychat.im/privacy` | Пункт скрыт, пока не настроен собственный адрес политики. |
 | `lib/pages/chat_list/client_chooser_button.dart:83-94,214-218` | «Поддержать FluffyChat», переход к пожертвованиям | Пункт меню, обработчик и enum-вариант удалены. |
-| `lib/utils/show_update_snackbar.dart` | Баннер с надписью fluffychat, кнопка поддержки и ссылка на changelog FluffyChat | Заголовок «Орда», кнопка пожертвования удалена, changelog открывается в репозитории Орды. Проверка обновлений Windows сохранена отдельно как внешний сервис. |
+| `lib/utils/show_update_snackbar.dart` | Баннер с надписью fluffychat, кнопка поддержки и ссылка на changelog FluffyChat | Заголовок «Орда», кнопка пожертвования удалена, changelog открывается в репозитории Орды. Проверка обновлений upstream отключена: URL API пустой, проверка возвращается до сетевого запроса. |
 | `lib/pages/chat_encryption_settings/chat_encryption_settings_view.dart` | «Справка» на Ko-fi об шифровании FluffyChat | Кнопка удалена. |
 | `lib/pages/chat/sticker_picker_dialog.dart` | «Обзор» на инструкцию FluffyChat о стикерах | Кнопка удалена; выбор и отправка существующих стикеров сохранены. |
 | `lib/utils/background_push.dart` | Ссылка «как получить push без Google» на Ko-fi | Ссылка удалена, предупреждение о push сохранено. |
@@ -94,20 +94,20 @@
 | `lib/l10n/intl_zh.arb` | `inviteText:789`, `newMessageInFluffyChat:936`, `noGoogleServicesWarning:971`, `discover:2095` ×, `appLockDescription:2110`, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2514`, `newPassphraseDescription:2598` |
 | `lib/l10n/intl_zh_Hant.arb` | `inviteText:688`, `newMessageInFluffyChat:835`, `discover:1627` × |
 
-## Внешние сервисы — решение владельца требуется
+## Внешние сервисы — решение владельца от 7 октября применено
 
-Эти настройки не удалены и не переименованы. Вопрос владельцу задан в чате; ответа на момент подготовки отчёта нет. Адреса выписаны из кода; сетевые запросы к этим сервисам специально не отправлялись.
+Владелец поручил отключить сервисы FluffyChat и оставить конфигурацию Firebase. Адреса приведены для аудита исходного поведения; запросы к этим сервисам при проверке не отправлялись.
 
-| Адрес / настройка | Назначение по коду | Что сохранено / вопрос |
+| Исходный адрес / настройка | Назначение по коду | Выполненное решение |
 | --- | --- | --- |
-| `https://push.fluffychat.im/_matrix/push/v1/notify` — `AppSettings.pushNotificationsGatewayUrl`, `lib/config/setting_keys.dart:31-34` | Push-шлюз. `BackgroundPush.setupPusher` передаёт этот URL Matrix-серверу при регистрации pusher; формат по умолчанию `event_id_only`. | Сохранён. Оставить временно или предоставить собственный шлюз? Отключение без замены может лишить фоновых уведомлений. |
-| `https://livekit-jwt.fluffy.chat` — `fallbackLiveKitInstance`, `lib/utils/matrix_live_kit_calls/matrix_live_kit_call.dart` | Резервный LiveKit/JWT сервис для звонков; SDK сначала ищет конфигурацию у homeserver, затем использует fallback. | Сохранён. Нужен собственный адрес или решение убрать fallback с оценкой доступности звонков. |
-| `https://crash.fluffy.chat` — `AppConfig.crashReportEndpoint` | Объявленная конечная точка отчётов об ошибках. По поиску всего `lib/` обращений к этой константе нет: текущий ErrorReporter использует диалог и GitHub issues. | Не удалён как запрошено. Решить, удалять ли неиспользуемую настройку или подключать свой сбор отчётов. |
-| `https://api.github.com/repos/krille-chan/fluffychat/releases/latest` — `UpdateNotifier.showUpdateAvailableBanner` | Проверка обновлений Windows, не чаще раза в день. Ищет файл `fluffychat-windows-x64-setup.exe`, может предложить установщик upstream через download URL ответа API. | Сохранены API и имя ожидаемого установщика. Владелец должен решить: отключить проверку или настроить релизы Орды. Пока этот функциональный путь всё ещё может открыть загрузку FluffyChat. |
-| `https://raw.githubusercontent.com/krille-chan/fluffychat/refs/heads/main/recommended_homeservers.json` — `AppConfig.homeserverList`, `SignInViewModel` | Загрузка списка рекомендуемых публичных Matrix-серверов на экране выбора сервера. | Сохранён. Оставить или заменить собственным списком/убрать публичный выбор? |
-| Firebase project `fluffychat-ef3e8`, bucket `fluffychat-ef3e8.appspot.com`, app ID `im.fluffychat.app` — `ios/Runner/GoogleService-Info.plist`; шаблоны `scripts/add-firebase-messaging.sh` | Настройки Firebase Cloud Messaging upstream. В исходном `BackgroundPush` `firebaseEnabled = false`, код Firebase включается подготовительным скриптом сборки. | Сохранены. Нужен собственный проект Firebase и совместимая конфигурация push. Ключи и токены в отчёт не включены. |
+| `https://push.fluffychat.im/_matrix/push/v1/notify` — `AppSettings.pushNotificationsGatewayUrl` | URL, передававшийся Matrix-серверу при регистрации HTTP pusher. | По умолчанию пустой. Сохранённое или управляемое значение этого домена также читается как пустое. При пустом шлюзе `setupPusher` возвращается до запроса pushers, разрешений и регистрации, включая вызов с UnifiedPush endpoint; настройка Firebase и обработка нового UP endpoint тоже пропускаются. |
+| `https://livekit-jwt.fluffy.chat` — `fallbackLiveKitInstance` | Резервный LiveKit/JWT сервис при отсутствии конфигурации у homeserver. | Fallback пустой; сохранённый upstream адрес игнорируется. Объявленный сервером LiveKit и собственный настроенный fallback поддерживаются. |
+| `https://crash.fluffy.chat` — `AppConfig.crashReportEndpoint` | Неиспользуемая константа; ErrorReporter использует диалог и GitHub issues. | Константа удалена. |
+| `https://api.github.com/repos/krille-chan/fluffychat/releases/latest` | Автоматическая проверка Windows-релизов FluffyChat. | Адрес удалён, `latestReleaseApiUrl` пустой, `checkForUpdates` по умолчанию false. Пустой URL запрещает запрос даже при сохранённом true. Диалог о уже установленной новой версии и changelog Орды сохранены. |
+| `https://raw.githubusercontent.com/krille-chan/fluffychat/refs/heads/main/recommended_homeservers.json` | Загрузка рекомендуемых Matrix-серверов на экране выбора. | URL, HTTP-загрузка и неиспользуемый JSON parser удалены. Список формируется локально из нашего defaultHomeserver; ввод собственного адреса работает. |
+| Firebase project `fluffychat-ef3e8` — `ios/Runner/GoogleService-Info.plist`, `scripts/add-firebase-messaging.sh` | Конфигурация upstream FCM. В исходном BackgroundPush firebaseEnabled=false; существующий CI-скрипт подключает Firebase для сборок. | Файлы и маркеры GOOGLE_SERVICES оставлены без изменений. Пустой шлюз блокирует настройку/регистрацию pusher также в сборке с подключённым Firebase. Ключи и токены в отчёт не включены. |
 
-Другие найденные внешние зависимости, не относящиеся к бренду FluffyChat: `https://matrix.gateway.unifiedpush.org/_matrix/push/v1/notify` (UnifiedPush fallback), `matrix.to` (Matrix-приглашения), `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png` и `www.openstreetmap.org` (карты и геолокация). Их адреса не менялись.
+Другие адреса: UnifiedPush fallback `https://matrix.gateway.unifiedpush.org/_matrix/push/v1/notify`, `matrix.to` (приглашения), OpenStreetMap (карты). Адреса сохранены; автоматическая настройка UnifiedPush при пустом шлюзе пропускается. Локальные уведомления и обработка нажатия на уведомление сохранены. Ранее зарегистрированные на сервере pushers этим изменением не удаляются.
 
 ## Конфигурация и лицензии
 
@@ -115,7 +115,7 @@
 - Сайт, политика и условия остаются пустыми заглушками до назначения владельцем. OIDC получает `null` для отсутствующих необязательных URL логотипа и документов; обязательный client URI при отсутствии website берётся из адреса развёрнутого web-приложения или репозитория Орды на мобильных платформах. Выдуманная политика конфиденциальности не добавлялась.
 - `LICENSE`, существующие SPDX-заголовки и copyright авторов сохранены. Новые исходники имеют SPDX; новые/заменённые изображения перечислены в отдельном блоке `REUSE.toml` с AGPL-3.0-or-later и Contributors to Орда. Неиспользуемые исторические исходники artwork сохраняют свои исходные атрибуции.
 - Dart-пакет `fluffychat`, все существующие ключи `chat.fluffy.*`, `kz.tildes.chat`, deep-link/OAuth схемы, App Group, pusher ID, Windows installer GUID и техническое имя executable не переименованы.
-- Значение `AppConfig.defaultHomeserver` / fallback `AppSettings.defaultHomeserver`: `herbicide-ninth-reliance.ngrok-free.dev`; `AppSettings.presetHomeserver`: `''`. В этом шаге не изменены.
+- Значение `AppConfig.defaultHomeserver` / fallback `AppSettings.defaultHomeserver`: `herbicide-ninth-reliance.ngrok-free.dev`; `AppSettings.presetHomeserver` теперь использует тот же домен. После «Войти» приложение сразу выполняет существующий flow подключения к нашему серверу. Образец web config обновлён; собственные явно заданные preset остаются поддержаны.
 
 ## Иконки из присланных файлов
 
@@ -129,12 +129,21 @@
 - Внутри приложения: полноцветный logo_mini; mono logo для блокировки и пустой страницы; splash на Android и три размера iOS LaunchImage.
 - Цвета темы приложения и web theme/background не изменены. Новый логотип бордово-золотой; согласование цветов интерфейса остаётся отдельным вопросом.
 
+## Исправления сборок PR №5
+
+- Android: удалён второй `values/ic_launcher_background.xml`; единственный цвет в `values/colors.xml` — бордовый `#330713`.
+- macOS: кириллическое значение `path = "Орда.app"` заключено в кавычки OpenStep. Имена продукта и scheme согласованы. Оба project.pbxproj и схемы проверены parser; iOS project.pbxproj не менялся относительно базы PR.
+- Три теста `test/orda_services_test.dart` проверяют preset, чтение сохранённых upstream адресов, отсутствие сетевых запросов pusher при пустом шлюзе и локальный выбор собственного сервера.
+- Android integration flow использует собственный локальный Synapse как preset и проверяет прямой переход ко входу. Ngrok и сервисы FluffyChat для этих тестов не используются.
+- Публикация изменений — fast-forward без force push. Слияние не выполняется.
+- Все обязательные результаты, включая APK, iOS, macOS, web, Windows, оба Linux и Android integration: [проверки последнего коммита PR](https://github.com/tsukixme/messenger/pull/5/checks). Итоговая проверка выполняется по последнему опубликованному коммиту.
+
 ## Проверки и ограничения
 
 - Flutter 3.47.4, Dart 3.13.3 (версия проекта), установлены в рабочую папку.
 - `dart format --output=none --set-exit-if-changed` для всех изменённых Dart-файлов и нового теста — PASS.
 - `flutter gen-l10n` — успешно. В исходном проекте есть отсутствующие переводы, используются существующие fallback; новых пустых строк не добавлено.
-- Проверка всех 59 ARB: нет старого имени/домена в значениях; ICU-параметры сохранены; удалены только ключи кнопок поддержки. Проверены JSON/XML/plist, целостность PNG/ICO, неизменность SPDX, LICENSE, внутренних ключей, адресов сервисов и хешей присланных оригиналов — PASS. Все 100 PNG в assets и платформах успешно декодируются; новые iOS AppIcon — RGB.
+- Проверка всех 59 ARB: нет старого имени/домена в значениях; ICU-параметры сохранены; удалены только ключи кнопок поддержки. Проверены JSON/XML/plist, целостность PNG/ICO, неизменность SPDX, LICENSE, внутренних ключей и хешей присланных оригиналов — PASS. Все 100 PNG в assets и платформах успешно декодируются; новые iOS AppIcon — RGB.
 - `git diff --check` с `cr-at-eol` для исходного CRLF Windows resource — PASS. `pubspec.lock` и workflow сборки не менялись.
 - `flutter analyze --no-pub` — PASS, `No issues found`. В локальной копии закреплённого Matrix SDK `355bf1d2d471ef2ab578d83a14a684cea7c07a1c` отсутствовал один файл динамической регистрации OIDC, хотя он присутствовал в Git index. Это воспроизводило пять ошибок и в исходном, и в изменённом приложении. Недостающий файл восстановлен из того же коммита SDK; версии зависимостей не менялись. После восстановления и исправления обязательного `clientUri` анализ проходит.
 - Добавлены два регрессионных теста `test/orda_branding_test.dart`: чтение старых/собственных настроек и отображение атрибуции со ссылкой в About/LicensePage. Их обычный локальный запуск заблокирован native hook `webcrypto`: не найден CMake. Результат тестов не объявляется успешным. `flutter pub get` получил зависимости и сгенерировал локализации, но его последний этап Windows plugins требует включённого symlink support; настройки Windows не менялись.
@@ -143,7 +152,7 @@
 
 ## Открытые вопросы владельцу
 
-1. Сохранить, отключить после оценки последствий или заменить перечисленные сервисы FluffyChat? Нужны целевые адреса push, LiveKit/JWT и собственный проект Firebase; отдельно решение по Windows updater и списку homeserver.
+1. Для последующего включения фонового push нужны собственный шлюз и проект Firebase; для fallback звонков — собственный LiveKit/JWT. Текущее поручение об отключении выполнено.
 2. Какие адреса назначить сайту, справке, политике и условиям Орды? Сейчас справка ведёт в issues проекта, остальные ссылки скрыты до настройки.
 3. Полноценная release-сборка и визуальная проверка входа остаются отдельным следующим шагом. Локальные проблемы анализа в Windows нужно отличать от результатов Linux CI.
 4. Подтверждение цветов темы, если требуется согласовать её с новым логотипом; текущие цвета сохранены.
@@ -190,6 +199,8 @@
 - `assets/logo/mini/logo_mono_mini.png`
 - `config.sample.json`
 - `docs/reports/ORDA-codex.md`
+- `integration_test/flows/auth_flows.dart`
+- `integration_test/utils/fluffy_chat_tester.dart`
 - `ios/FluffyChat Share/Info.plist`
 - `ios/Notification Service Extension/NotificationService.swift`
 - `ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png`
@@ -267,6 +278,9 @@
 - `lib/pages/chat_list/client_chooser_button.dart`
 - `lib/pages/intro/intro_page.dart`
 - `lib/pages/settings/settings_view.dart`
+- `lib/pages/sign_in/sign_in_page.dart`
+- `lib/pages/sign_in/view_model/model/public_homeserver_data.dart`
+- `lib/pages/sign_in/view_model/sign_in_view_model.dart`
 - `lib/utils/background_push.dart`
 - `lib/utils/client_manager.dart`
 - `lib/utils/error_reporter.dart`
@@ -294,6 +308,7 @@
 - `snap/gui/fluffychat.png`
 - `snap/snapcraft.yaml`
 - `test/orda_branding_test.dart`
+- `test/orda_services_test.dart`
 - `web/favicon.png`
 - `web/icons/Icon-16.png`
 - `web/icons/Icon-192.png`

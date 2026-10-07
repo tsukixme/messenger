@@ -161,6 +161,13 @@ class BackgroundPush {
     String? gatewayUrl,
     String? token,
   }) async {
+    if (AppSettings.pushNotificationsGatewayUrl.value.isEmpty ||
+        gatewayUrl == null ||
+        gatewayUrl.isEmpty ||
+        token == null ||
+        token.isEmpty) {
+      return;
+    }
     if (PlatformInfos.isIOS) {
       //<GOOGLE_SERVICES>await firebase.requestPermission();
     }
@@ -187,10 +194,6 @@ class BackgroundPush {
       deviceAppId = deviceAppId.substring(0, 64);
     }
     final thisAppId = deviceAppId;
-    if (gatewayUrl == null || token == null) {
-      Logs().w('[Push] Missing required push credentials');
-      return;
-    }
 
     if (pushers.any(
       (currentPusher) =>
@@ -264,7 +267,8 @@ class BackgroundPush {
   static bool _wentToRoomOnStartup = false;
 
   Future<void> setupPush(BuildContext context) async {
-    if (PlatformInfos.isAndroid &&
+    if (AppSettings.pushNotificationsGatewayUrl.value.isNotEmpty &&
+        PlatformInfos.isAndroid &&
         (await UnifiedPush.getDistributors()).isNotEmpty &&
         context.mounted) {
       await UnifiedPushUi(
@@ -331,6 +335,7 @@ class BackgroundPush {
   }
 
   Future<void> setupFirebase(Client client) async {
+    if (AppSettings.pushNotificationsGatewayUrl.value.isEmpty) return;
     Logs().v('Setup firebase');
     if (!firebaseEnabled) {
       await _noFcmWarning();
@@ -367,6 +372,7 @@ class BackgroundPush {
   }
 
   Future<void> _newUpEndpoint(PushEndpoint newPushEndpoint, String i) async {
+    if (AppSettings.pushNotificationsGatewayUrl.value.isEmpty) return;
     final newEndpoint = newPushEndpoint.url;
     upAction = true;
     if (newEndpoint.isEmpty) {

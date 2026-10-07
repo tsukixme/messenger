@@ -53,32 +53,4 @@ class PublicHomeserverData {
     this.slidingSync,
     this.ipv6,
   });
-
-  factory PublicHomeserverData.fromJson(Map<String, dynamic> json) {
-    return PublicHomeserverData(
-      name: json['name'],
-      clientDomain: json['client_domain'],
-      website: json['website'],
-      isp: json['isp'],
-      staffJur: json['staff_jur'],
-      rules: json['rules'],
-      privacy: json['privacy'],
-      usingVanillaReg: json['using_vanilla_reg'],
-      description: json['description'],
-      regMethod: json['reg_method'],
-      regLink: json['reg_link'],
-      software: json['software'],
-      version: json['version'],
-      captcha: json['captcha'],
-      email: json['email'],
-      languages: List<String>.from(json['languages'] ?? []),
-      features: List<String>.from(json['features'] ?? []),
-      onlineStatus: json['online_status'],
-      serverDomain: json['server_domain'],
-      verStatus: json['ver_status'],
-      roomDirectory: json['room_directory'],
-      slidingSync: json['sliding_sync'],
-      ipv6: json['ipv6'],
-    );
-  }
 }

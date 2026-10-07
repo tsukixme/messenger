@@ -43,8 +43,7 @@ abstract class AppConfig {
       'https://github.com/tsukixme/messenger/issues';
   static const String changelogUrl =
       'https://github.com/tsukixme/messenger/blob/main/CHANGELOG.md';
-  static const String latestReleaseApiUrl =
-      'https://api.github.com/repos/krille-chan/fluffychat/releases/latest';
+  static const String latestReleaseApiUrl = '';
 
   static const Set<String> defaultReactions = {'👍', '❤️', '😂', '😮', '😢'};
 
@@ -52,17 +51,6 @@ abstract class AppConfig {
     scheme: 'https',
     host: 'github.com',
     path: '/tsukixme/messenger/issues/new',
-  );
-
-  static final Uri homeserverList = Uri(
-    scheme: 'https',
-    host: 'raw.githubusercontent.com',
-    path: 'krille-chan/fluffychat/refs/heads/main/recommended_homeservers.json',
-  );
-
-  static final Uri crashReportEndpoint = Uri(
-    scheme: 'https',
-    host: 'crash.fluffy.chat',
   );
 
   static const String mainIsolatePortName = 'main_isolate';
