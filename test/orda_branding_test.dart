@@ -9,6 +9,7 @@ import 'package:fluffychat/utils/platform_infos.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -41,6 +42,17 @@ void main() {
   testWidgets('About and licenses retain attribution and the repository link', (
     tester,
   ) async {
+    SharedPreferences.setMockInitialValues({
+      AppSettings.applicationName.key: AppConfig.applicationName,
+    });
+    await AppSettings.init(loadWebConfigFile: false);
+    PackageInfo.setMockInitialValues(
+      appName: AppConfig.applicationName,
+      packageName: 'fluffychat',
+      version: '2.10.0',
+      buildNumber: '3568',
+      buildSignature: '',
+    );
     LicenseRegistry.reset();
     LicenseRegistry.addLicense(() async* {
       yield LicenseEntryWithLineBreaks(['test'], 'AGPL-3.0');

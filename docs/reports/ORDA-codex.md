@@ -18,6 +18,7 @@
 | `lib/pages/chat/sticker_picker_dialog.dart` | «Обзор» на инструкцию FluffyChat о стикерах | Кнопка удалена; выбор и отправка существующих стикеров сохранены. |
 | `lib/utils/background_push.dart` | Ссылка «как получить push без Google» на Ko-fi | Ссылка удалена, предупреждение о push сохранено. |
 | `lib/config/app_config.dart`, `lib/utils/error_reporter.dart`, `lib/utils/init_with_restore.dart` | Создание/поиск ошибки и восстановление сессии ссылались на upstream tracker | Ссылки и поиск issues перенаправлены на `tsukixme/messenger`. |
+| `.github/ISSUE_TEMPLATE/config.yml:3-5`, `.github/ISSUE_TEMPLATE/test_report.md:28` | «FluffyChat Community» в меню трекера и название в протоколе тестирования | Ссылка на community удалена, название заменено на Орда. |
 | `lib/utils/start_push_foreground_service.dart:71`, ARB `newMessageInFluffyChat` | Заголовки фоновой синхронизации и уведомлений FluffyChat | «Орда», ключ перевода оставлен внутренним. |
 | `lib/utils/fluffy_share.dart`, ARB `inviteText` | Инструкция установить FluffyChat с fluffychat.im и Matrix-ссылка с `client=im.fluffychat` | Шаг установки с чужого сайта удалён во всех имеющих его переводах, шаги перенумерованы; подсказка выбора клиента из Matrix-ссылки удалена. `{username}` и `{link}` сохранены. |
 | `lib/pages/bootstrap/view_model/bootstrap_view_model.dart:287`, `lib/widgets/matrix.dart:429` | `FluffyChat-Recovery-Key-….txt`, `fluffychat-export-….fluffybackup` | `Orda-Recovery-Key-….txt`, `orda-export-….ordabackup`. Формат содержимого не изменён, импорт не ограничивает расширение и принимает старые файлы. |
@@ -40,6 +41,7 @@
 - `https://ko-fi.com/post/How-can-I-get-Push-Notifications-without-Google-N7Q825URG6?fromEditor=true`
 - `https://fluffychat.im`, `/privacy`, `/tos`, `/changelog/`, `/assets/favicon.png`
 - `https://github.com/krille-chan/fluffychat` и его `/issues`, `/issues/new`, `/releases` в пользовательских ссылках.
+- `https://matrix.to/#/#fluffy-space:matrix.org` в метаданных snap и меню GitHub issues.
 
 ## Переводы — полный список изменённых сообщений
 
@@ -148,6 +150,8 @@
 
 ## Изменённые файлы
 
+- `.github/ISSUE_TEMPLATE/config.yml`
+- `.github/ISSUE_TEMPLATE/test_report.md`
 - `REUSE.toml`
 - `android/app/src/main/AndroidManifest.xml`
 - `android/app/src/main/res/drawable-hdpi/ic_launcher_foreground.png`

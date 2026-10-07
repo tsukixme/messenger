@@ -100,7 +100,7 @@ abstract class PlatformInfos {
           ClipRRect(
             borderRadius: BorderRadius.circular(64),
             child: Image.asset(
-              './assets/logo/mini/logo_mini.png',
+              'assets/logo/mini/logo_mini.png',
               width: 64,
               height: 64,
             ),
