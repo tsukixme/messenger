@@ -800,7 +800,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "inviteText": "{username} te je pozvao/la u FluffyChat. \n1. Posjeti strnicu fluffychat.im i instaliraj aplikaciju \n2. Registriraj ili prijavi se \n3. Otvori poveznicu poziva: \n {link}",
+    "inviteText": "{username} te je pozvao/la u Орда. \n1. Registriraj ili prijavi se \n2. Otvori poveznicu poziva: \n {link}",
     "@inviteText": {
         "type": "String",
         "placeholders": {
@@ -947,7 +947,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "newMessageInFluffyChat": "💬 Nova poruka u FluffyChatu",
+    "newMessageInFluffyChat": "💬 Nova poruka u Орда",
     "@newMessageInFluffyChat": {
         "type": "String",
         "placeholders": {}

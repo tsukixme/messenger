@@ -99,7 +99,7 @@ class BackgroundPush {
       }
       await _flutterLocalNotificationsPlugin.initialize(
         settings: const InitializationSettings(
-          android: AndroidInitializationSettings('notifications_icon'),
+          android: AndroidInitializationSettings('orda_notification'),
           iOS: DarwinInitializationSettings(),
         ),
         onDidReceiveNotificationResponse: (response) => notificationTap(
@@ -323,10 +323,7 @@ class BackgroundPush {
     await loadLocale();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (PlatformInfos.isAndroid) {
-        onFcmError?.call(
-          l10n!.noGoogleServicesWarning,
-          link: Uri.parse(AppConfig.enablePushTutorial),
-        );
+        onFcmError?.call(l10n!.noGoogleServicesWarning);
         return;
       }
       onFcmError?.call(l10n!.oopsPushError);

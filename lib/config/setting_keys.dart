@@ -53,7 +53,10 @@ enum AppSettings<T> {
   ),
   displayChatDetailsColumn('chat.fluffy.display_chat_details_column', false),
   // AppConfig-mirrored settings
-  applicationName<String>('chat.fluffy.application_name', 'Tildes'),
+  applicationName<String>(
+    'chat.fluffy.application_name',
+    AppConfig.applicationName,
+  ),
   defaultHomeserver<String>(
     'chat.fluffy.default_homeserver',
     AppConfig.defaultHomeserver,
@@ -65,16 +68,10 @@ enum AppSettings<T> {
   enableMatrixNativeOIDC<bool>('chat.fluffy.enable_matrix_native_oidc', true),
   presetHomeserver<String>('chat.fluffy.preset_homeserver', ''),
   welcomeText<String>('chat.fluffy.welcome_text', ''),
-  website<String>('chat.fluffy.website_url', 'https://fluffychat.im'),
-  logoUrl<String>(
-    'chat.fluffy.logo_url',
-    'https://fluffychat.im/assets/favicon.png',
-  ),
-  privacyPolicy<String>(
-    'chat.fluffy.privacy_policy_url',
-    'https://fluffychat.im/privacy',
-  ),
-  tos<String>('chat.fluffy.tos_url', 'https://fluffychat.im/tos'),
+  website<String>('chat.fluffy.website_url', ''),
+  logoUrl<String>('chat.fluffy.logo_url', ''),
+  privacyPolicy<String>('chat.fluffy.privacy_policy_url', ''),
+  tos<String>('chat.fluffy.tos_url', ''),
   sendTimelineEventTimeout<int>('chat.fluffy.send_timeline_event_timeout', 15),
   webNotificationSound<bool>('chat.fluffy.web_notification_sound', true),
   chatFilter<String>('chat.fluffy.chat_filter', 'allChats'),
@@ -208,7 +205,25 @@ extension AppSettingsStringExtension on AppSettings<String> {
         error.stackTrace,
       );
     }
-    return value.asValue?.value ?? defaultValue;
+    final resolved = value.asValue?.value ?? defaultValue;
+    // Apply the rebrand to inherited local, web and MDM values as well.
+    if (this == AppSettings.applicationName &&
+        {'Tildes', 'FluffyChat'}.contains(resolved)) {
+      return AppConfig.applicationName;
+    }
+    if ([
+          AppSettings.website,
+          AppSettings.logoUrl,
+          AppSettings.privacyPolicy,
+          AppSettings.tos,
+        ].contains(this) &&
+        {
+          'fluffychat.im',
+          'fluffy.chat',
+        }.contains(Uri.tryParse(resolved)?.host)) {
+      return '';
+    }
+    return resolved;
   }
 
   Future<void> setItem(String value) => AppSettings.store.setString(key, value);

@@ -173,7 +173,7 @@ abstract class ClientManager {
 
     await flutterLocalNotificationsPlugin.initialize(
       settings: InitializationSettings(
-        android: const AndroidInitializationSettings('notifications_icon'),
+        android: const AndroidInitializationSettings('orda_notification'),
         iOS: const DarwinInitializationSettings(),
         linux: LinuxInitializationSettings(
           defaultActionName: FluffyChatNotificationActions.open.name,

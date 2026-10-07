@@ -94,15 +94,25 @@ abstract class PlatformInfos {
           },
         ),
       ],
-      applicationIcon: ClipRRect(
-        borderRadius: BorderRadius.circular(64),
-        child: Image.asset(
-          './assets/logo/mini/logo_mini.png',
-          width: 64,
-          height: 64,
-        ),
+      applicationIcon: Column(
+        mainAxisSize: .min,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(64),
+            child: Image.asset(
+              './assets/logo/mini/logo_mini.png',
+              width: 64,
+              height: 64,
+            ),
+          ),
+          TextButton(
+            onPressed: () => launchUrlString(AppConfig.sourceCodeUrl),
+            child: const Text('GitHub'),
+          ),
+        ],
       ),
       applicationName: AppSettings.applicationName.value,
+      applicationLegalese: AppConfig.licenseAttribution,
     );
   }
 }

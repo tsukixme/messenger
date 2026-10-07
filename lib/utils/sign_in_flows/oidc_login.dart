@@ -24,10 +24,17 @@ Future<void> oidcLoginFlow(
 
   final (redirectUrl, urlScheme) = calcRedirectUrl();
 
-  final clientUri = Uri.parse(AppSettings.website.value);
+  final website = AppSettings.website.value;
+  final clientUri = website.isNotEmpty
+      ? Uri.parse(website)
+      : kIsWeb
+      ? Uri.parse(Uri.base.origin)
+      : null;
   final supportWebPlatform =
       kIsWeb &&
       kReleaseMode &&
+      clientUri != null &&
+      clientUri.host.isNotEmpty &&
       redirectUrl.scheme == 'https' &&
       redirectUrl.host.contains(clientUri.host);
   if (kIsWeb && !supportWebPlatform) {
@@ -44,9 +51,15 @@ Future<void> oidcLoginFlow(
     clientInformation: OidcClientInformation(
       clientName: AppSettings.applicationName.value,
       clientUri: clientUri,
-      logoUri: Uri.parse(AppSettings.logoUrl.value),
-      tosUri: Uri.parse(AppSettings.tos.value),
-      policyUri: Uri.parse(AppSettings.privacyPolicy.value),
+      logoUri: AppSettings.logoUrl.value.isEmpty
+          ? null
+          : Uri.parse(AppSettings.logoUrl.value),
+      tosUri: AppSettings.tos.value.isEmpty
+          ? null
+          : Uri.parse(AppSettings.tos.value),
+      policyUri: AppSettings.privacyPolicy.value.isEmpty
+          ? null
+          : Uri.parse(AppSettings.privacyPolicy.value),
     ),
   );
 

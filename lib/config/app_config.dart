@@ -6,6 +6,9 @@
 import 'dart:ui';
 
 abstract class AppConfig {
+  static const String applicationName = 'Орда';
+  static const String licenseAttribution =
+      'Орда основана на FluffyChat (AGPL-3.0)';
   // Shared fallback for Android, iOS and web; keep the deployment domain here.
   static const String defaultHomeserver =
       'herbicide-ninth-reliance.ngrok-free.dev';
@@ -28,12 +31,6 @@ abstract class AppConfig {
   static const double spaceBorderRadius = 11.0;
   static const double columnWidth = 360.0;
 
-  static const String enablePushTutorial =
-      'https://ko-fi.com/post/How-can-I-get-Push-Notifications-without-Google-N7Q825URG6?fromEditor=true';
-  static const String encryptionTutorial =
-      'https://ko-fi.com/post/How-to-use-end-to-end-encryption-in-FluffyChat-A5O725WDR5';
-  static const String howDoIGetStickersTutorial =
-      'https://ko-fi.com/post/How-to-add-a-sticker-pack-to-FluffyChat-N4N01OXATI';
   static const String appId = 'im.fluffychat.app';
   static const String appOpenUrlScheme = 'im.fluffychat';
   static const String appSsoUrlScheme = 'im.fluffychat.auth';
@@ -41,22 +38,20 @@ abstract class AppConfig {
   static const String windowsNotificationGuid =
       '4894dfda-c70a-4ebc-b139-acae55f3988d';
 
-  static const String sourceCodeUrl =
-      'https://github.com/krille-chan/fluffychat';
+  static const String sourceCodeUrl = 'https://github.com/tsukixme/messenger';
   static const String supportUrl =
-      'https://github.com/krille-chan/fluffychat/issues';
-  static const String changelogUrl = 'https://fluffychat.im/changelog/';
+      'https://github.com/tsukixme/messenger/issues';
+  static const String changelogUrl =
+      'https://github.com/tsukixme/messenger/blob/main/CHANGELOG.md';
   static const String latestReleaseApiUrl =
       'https://api.github.com/repos/krille-chan/fluffychat/releases/latest';
-  static const String helpUrl =
-      'https://ko-fi.com/post/How-can-I-support-FluffyChat-J2G325WE6I';
 
   static const Set<String> defaultReactions = {'👍', '❤️', '😂', '😮', '😢'};
 
   static final Uri newIssueUrl = Uri(
     scheme: 'https',
     host: 'github.com',
-    path: '/krille-chan/fluffychat/issues/new',
+    path: '/tsukixme/messenger/issues/new',
   );
 
   static final Uri homeserverList = Uri(
