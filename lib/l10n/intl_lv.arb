@@ -2064,7 +2064,7 @@
     "passwordsDoNotMatch": "Paroles nesakrīt",
     "publicChatAddresses": "Publiskas tērzēšanas adreses",
     "createNewAddress": "Izveidot jaunu adresi",
-    "discover": "Atklāt",
+
     "unreadChatsInApp": "{appname}: {unread} nelasītas tērzēšanas",
     "@unreadChatsInApp": {
         "type": "String",

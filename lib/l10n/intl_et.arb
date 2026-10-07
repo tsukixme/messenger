@@ -2095,7 +2095,7 @@
     },
     "incomingMessages": "Saabuvad sõnumid",
     "stickers": "Kleepsud",
-    "discover": "Otsi ja leia",
+
     "commandHint_ignore": "Eira seda Matrixi kasutajatunnust",
     "commandHint_unignore": "Lõpeta selle Matrixi kasutajatunnuse eiramine",
     "unreadChatsInApp": "{appname}: {unread} lugemata vestlust",

@@ -2094,7 +2094,7 @@
     "commandHint_ignore": "Angegebene Matrix-ID ignorieren",
     "noDatabaseEncryption": "Datenbankverschlüsselung wird auf dieser Plattform nicht unterstützt",
     "stickers": "Sticker",
-    "discover": "Entdecken",
+
     "unreadChatsInApp": "{appname}: {unread} ungelesene Chats",
     "@unreadChatsInApp": {
         "type": "String",

@@ -2091,7 +2091,7 @@
     },
     "sendReadReceiptsDescription": "Andra deltagare i en diskussion kan se när du läst ett meddelande.",
     "stickers": "Klistermärken",
-    "discover": "Upptäck",
+
     "aboutHomeserver": "Om {homeserver}",
     "@aboutHomeserver": {
         "type": "String",

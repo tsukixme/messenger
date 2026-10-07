@@ -2170,7 +2170,7 @@
     },
     "incomingMessages": "پیام‌های دریافتی",
     "stickers": "برچسب‌ها",
-    "discover": "کشف",
+
     "commandHint_ignore": "چشم‌پوشی از شناسه ماتریکس داده‌شده",
     "commandHint_unignore": "لغو چشم‌پوشی از شناسه ماتریکس داده‌شده",
     "unreadChatsInApp": "{appname}: {unread} چت خوانده‌نشده",

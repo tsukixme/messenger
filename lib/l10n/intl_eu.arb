@@ -2091,7 +2091,7 @@
         }
     },
     "incomingMessages": "Jasotako mezuak",
-    "discover": "Arakatu",
+
     "stickers": "Pegatinak",
     "commandHint_unignore": "Utzi Matrix ID honi muzin egiteari",
     "commandHint_ignore": "Muzin egin Matrix ID honi",

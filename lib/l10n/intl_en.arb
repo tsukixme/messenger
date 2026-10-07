@@ -2233,7 +2233,7 @@
     },
     "incomingMessages": "Incoming messages",
     "stickers": "Stickers",
-    "discover": "Discover",
+
     "commandHint_ignore": "Ignore the given matrix ID",
     "commandHint_unignore": "Unignore the given matrix ID",
     "unreadChatsInApp": "{appname}: {unread} unread chats",

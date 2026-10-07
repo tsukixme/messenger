@@ -2182,7 +2182,7 @@
     },
     "incomingMessages": "Saapuvat viestit",
     "stickers": "Tarrat",
-    "discover": "Tutustu",
+
     "commandHint_ignore": "Jätä huomiotta annettu matrix-tunnus",
     "commandHint_unignore": "Kumoa annetun matrix-tunnuksen huomiottajätäminen",
     "unreadChatsInApp": "{appname}: {unread} lukematonta keskustelua",

@@ -2091,7 +2091,7 @@
         }
     },
     "stickers": "Enganxines",
-    "discover": "Descobreix",
+
     "commandHint_ignore": "Ignora el compte de matrix especificat",
     "commandHint_unignore": "Deixa d'ignorar el compt de matrix especificat",
     "sendCanceled": "S'ha canceŀlat l'enviament",

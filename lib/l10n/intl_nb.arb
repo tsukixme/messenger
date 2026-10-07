@@ -1669,7 +1669,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "discover": "Oppdag",
+
     "thereAreCountUsersBlocked": "Akkurat nå er det {count} blokkerte brukere.",
     "@thereAreCountUsersBlocked": {
         "type": "String",

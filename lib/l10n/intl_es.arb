@@ -2237,7 +2237,7 @@
             }
         }
     },
-    "discover": "Descubrir",
+
     "thereAreCountUsersBlocked": "Ahora mismo, hay {count} usuarios bloqueados.",
     "@thereAreCountUsersBlocked": {
         "type": "String",

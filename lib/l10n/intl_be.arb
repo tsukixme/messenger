@@ -2235,7 +2235,7 @@
     },
     "incomingMessages": "Уваходныя паведамленні",
     "stickers": "Стыкеры",
-    "discover": "Даследаваць",
+
     "commandHint_ignore": "Ігнараваць дадзены matrix ID",
     "commandHint_unignore": "Перастаць ігнараваць дадзены matrix ID",
     "unreadChatsInApp": "{appname}: {unread} непрачытаных чатаў",

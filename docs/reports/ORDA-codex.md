@@ -43,53 +43,54 @@
 
 ## Переводы — полный список изменённых сообщений
 
-Проверены все 59 ARB-файлов. Изменены/удалены 205 сообщений в 41 файле: название, уведомления, приглашения, вводная регистрация, описание шифрования/блокировки, тексты поддержки. Удалены 45 больше не используемых переводов кнопок `supportFluffyChat` / `support`. Ключи остальных сообщений и ICU-параметры сохранены. Учтены также персидское написание, тамильский перевод названия и финское `FluffyChätissä`.
+Проверены все 59 ARB-файлов. Изменены/удалены 239 сообщений в 42 файлах: название, уведомления, приглашения, вводная регистрация, описание шифрования/блокировки, тексты поддержки. Удалены 45 больше не используемых переводов кнопок `supportFluffyChat` / `support` и 34 переводов `discover` для удалённой ссылки на инструкцию по стикерам. Ключи остальных сообщений и ICU-параметры сохранены. Учтены также персидское написание, тамильский перевод названия и финское `FluffyChätissä`.
 
 Номера строк в следующей таблице относятся к базовому коммиту, а не к изменённому файлу.
 
 | Файл | Найденные сообщения (ключ:строка; × — удалено) |
 | --- | --- |
-| `lib/l10n/intl_ar.arb` | `inviteText:543`, `newMessageInFluffyChat:675`, `signUpGreeting:2457`, `supportFluffyChat:2476` ×, `support:2477` ×, `possibleByYou:2486`, `newPassphraseDescription:2560` |
-| `lib/l10n/intl_be.arb` | `inviteText:926`, `newMessageInFluffyChat:1087`, `signUpGreeting:2466`, `supportFluffyChat:2486` ×, `support:2487` ×, `possibleByYou:2576`, `newPassphraseDescription:2660` |
-| `lib/l10n/intl_ca.arb` | `inviteText:628`, `newMessageInFluffyChat:775`, `noGoogleServicesWarning:800`, `signUpGreeting:2478`, `supportFluffyChat:2498` ×, `support:2499` × |
-| `lib/l10n/intl_cs.arb` | `inviteText:817`, `newMessageInFluffyChat:974`, `signUpGreeting:2329` |
-| `lib/l10n/intl_de.arb` | `inviteText:812`, `newMessageInFluffyChat:969`, `signUpGreeting:2485`, `supportFluffyChat:2507` ×, `support:2508` ×, `possibleByYou:2525`, `newPassphraseDescription:2608` |
-| `lib/l10n/intl_en.arb` | `inviteText:989`, `newMessageInFluffyChat:1150`, `signUpGreeting:2550`, `supportFluffyChat:2570` ×, `support:2571` ×, `possibleByYou:2580`, `newPassphraseDescription:2664` |
+| `lib/l10n/intl_ar.arb` | `inviteText:543`, `newMessageInFluffyChat:675`, `discover:2086` ×, `signUpGreeting:2457`, `supportFluffyChat:2476` ×, `support:2477` ×, `possibleByYou:2486`, `newPassphraseDescription:2560` |
+| `lib/l10n/intl_be.arb` | `inviteText:926`, `newMessageInFluffyChat:1087`, `discover:2238` ×, `signUpGreeting:2466`, `supportFluffyChat:2486` ×, `support:2487` ×, `possibleByYou:2576`, `newPassphraseDescription:2660` |
+| `lib/l10n/intl_ca.arb` | `inviteText:628`, `newMessageInFluffyChat:775`, `noGoogleServicesWarning:800`, `discover:2094` ×, `signUpGreeting:2478`, `supportFluffyChat:2498` ×, `support:2499` × |
+| `lib/l10n/intl_cs.arb` | `inviteText:817`, `newMessageInFluffyChat:974`, `signUpGreeting:2329`, `discover:2391` × |
+| `lib/l10n/intl_de.arb` | `inviteText:812`, `newMessageInFluffyChat:969`, `discover:2097` ×, `signUpGreeting:2485`, `supportFluffyChat:2507` ×, `support:2508` ×, `possibleByYou:2525`, `newPassphraseDescription:2608` |
+| `lib/l10n/intl_en.arb` | `inviteText:989`, `newMessageInFluffyChat:1150`, `discover:2236` ×, `signUpGreeting:2550`, `supportFluffyChat:2570` ×, `support:2571` ×, `possibleByYou:2580`, `newPassphraseDescription:2664` |
 | `lib/l10n/intl_eo.arb` | `inviteText:806`, `newMessageInFluffyChat:953`, `noGoogleServicesWarning:988` |
-| `lib/l10n/intl_es.arb` | `inviteText:625`, `newMessageInFluffyChat:762`, `signUpGreeting:2487`, `supportFluffyChat:2507` ×, `support:2508` ×, `possibleByYou:2524` |
-| `lib/l10n/intl_et.arb` | `inviteText:817`, `newMessageInFluffyChat:974`, `noGoogleServicesWarning:1009`, `signUpGreeting:2482`, `supportFluffyChat:2502` ×, `support:2503` ×, `possibleByYou:2517`, `newPassphraseDescription:2619` |
-| `lib/l10n/intl_eu.arb` | `inviteText:537`, `newMessageInFluffyChat:669`, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2516` |
-| `lib/l10n/intl_fa.arb` | `newMessageInFluffyChat:1012`, `noGoogleServicesWarning:1294`, `inviteText:1340`, `signUpGreeting:2469`, `supportFluffyChat:2489` ×, `support:2490` × |
-| `lib/l10n/intl_fi.arb` | `about:3`, `inviteText:641`, `newMessageInFluffyChat:779` |
-| `lib/l10n/intl_fr.arb` | `inviteText:818`, `newMessageInFluffyChat:975`, `signUpGreeting:2319`, `supportFluffyChat:2489` ×, `possibleByYou:2510`, `newPassphraseDescription:2592`, `support:2704` × |
-| `lib/l10n/intl_ga.arb` | `inviteText:1002`, `newMessageInFluffyChat:1051`, `signUpGreeting:2485`, `supportFluffyChat:2505` ×, `support:2506` ×, `possibleByYou:2522`, `newPassphraseDescription:2606` |
-| `lib/l10n/intl_gl.arb` | `inviteText:817`, `newMessageInFluffyChat:974`, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2516`, `newPassphraseDescription:2600` |
+| `lib/l10n/intl_es.arb` | `inviteText:625`, `newMessageInFluffyChat:762`, `discover:2240` ×, `signUpGreeting:2487`, `supportFluffyChat:2507` ×, `support:2508` ×, `possibleByYou:2524` |
+| `lib/l10n/intl_et.arb` | `inviteText:817`, `newMessageInFluffyChat:974`, `noGoogleServicesWarning:1009`, `discover:2098` ×, `signUpGreeting:2482`, `supportFluffyChat:2502` ×, `support:2503` ×, `possibleByYou:2517`, `newPassphraseDescription:2619` |
+| `lib/l10n/intl_eu.arb` | `inviteText:537`, `newMessageInFluffyChat:669`, `discover:2094` ×, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2516` |
+| `lib/l10n/intl_fa.arb` | `newMessageInFluffyChat:1012`, `noGoogleServicesWarning:1294`, `inviteText:1340`, `discover:2173` ×, `signUpGreeting:2469`, `supportFluffyChat:2489` ×, `support:2490` × |
+| `lib/l10n/intl_fi.arb` | `about:3`, `inviteText:641`, `newMessageInFluffyChat:779`, `discover:2185` × |
+| `lib/l10n/intl_fr.arb` | `inviteText:818`, `newMessageInFluffyChat:975`, `discover:1995` ×, `signUpGreeting:2319`, `supportFluffyChat:2489` ×, `possibleByYou:2510`, `newPassphraseDescription:2592`, `support:2704` × |
+| `lib/l10n/intl_ga.arb` | `inviteText:1002`, `newMessageInFluffyChat:1051`, `discover:2209` ×, `signUpGreeting:2485`, `supportFluffyChat:2505` ×, `support:2506` ×, `possibleByYou:2522`, `newPassphraseDescription:2606` |
+| `lib/l10n/intl_gl.arb` | `inviteText:817`, `newMessageInFluffyChat:974`, `discover:2095` ×, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2516`, `newPassphraseDescription:2600` |
 | `lib/l10n/intl_he.arb` | `inviteText:622`, `newMessageInFluffyChat:1085`, `noGoogleServicesWarning:1090` |
-| `lib/l10n/intl_hr.arb` | `inviteText:803`, `newMessageInFluffyChat:950` |
-| `lib/l10n/intl_hu.arb` | `inviteText:572`, `newMessageInFluffyChat:709` |
-| `lib/l10n/intl_id.arb` | `inviteText:91`, `newMessageInFluffyChat:808`, `signUpGreeting:2478`, `supportFluffyChat:2498` ×, `support:2499` ×, `possibleByYou:2515`, `newPassphraseDescription:2599` |
-| `lib/l10n/intl_it.arb` | `inviteText:693`, `newMessageInFluffyChat:840`, `supportFluffyChat:2544` × |
+| `lib/l10n/intl_hr.arb` | `inviteText:803`, `newMessageInFluffyChat:950`, `discover:1978` × |
+| `lib/l10n/intl_hu.arb` | `inviteText:572`, `newMessageInFluffyChat:709`, `discover:2090` × |
+| `lib/l10n/intl_id.arb` | `inviteText:91`, `newMessageInFluffyChat:808`, `discover:2072` ×, `signUpGreeting:2478`, `supportFluffyChat:2498` ×, `support:2499` ×, `possibleByYou:2515`, `newPassphraseDescription:2599` |
+| `lib/l10n/intl_it.arb` | `inviteText:693`, `newMessageInFluffyChat:840`, `discover:2003` ×, `supportFluffyChat:2544` × |
 | `lib/l10n/intl_ja.arb` | `inviteText:700`, `newMessageInFluffyChat:847`, `signUpGreeting:2243` |
-| `lib/l10n/intl_kab.arb` | `newMessageInFluffyChat:755`, `inviteText:1141`, `signUpGreeting:1699` |
-| `lib/l10n/intl_ko.arb` | `newMessageInFluffyChat:1060`, `noGoogleServicesWarning:1281`, `inviteText:1496` |
+| `lib/l10n/intl_kab.arb` | `newMessageInFluffyChat:755`, `inviteText:1141`, `signUpGreeting:1699`, `discover:1756` × |
+| `lib/l10n/intl_ko.arb` | `newMessageInFluffyChat:1060`, `noGoogleServicesWarning:1281`, `inviteText:1496`, `discover:2096` × |
 | `lib/l10n/intl_lt.arb` | `newMessageInFluffyChat:699`, `noGoogleServicesWarning:1043`, `inviteText:1464`, `newPassphraseDescription:1904` |
-| `lib/l10n/intl_lv.arb` | `inviteText:518`, `newMessageInFluffyChat:843`, `signUpGreeting:2463`, `support:2473` ×, `supportFluffyChat:2490` ×, `possibleByYou:2496`, `newPassphraseDescription:2698` |
-| `lib/l10n/intl_nb.arb` | `inviteText:666`, `newMessageInFluffyChat:813`, `signUpGreeting:2486`, `supportFluffyChat:2506` ×, `support:2507` ×, `possibleByYou:2523`, `newPassphraseDescription:2587` |
-| `lib/l10n/intl_nl.arb` | `inviteText:817`, `newMessageInFluffyChat:974`, `signUpGreeting:2478`, `supportFluffyChat:2498` ×, `support:2499` ×, `possibleByYou:2513`, `newPassphraseDescription:2599` |
-| `lib/l10n/intl_pl.arb` | `inviteText:729`, `newMessageInFluffyChat:871`, `signUpGreeting:2443`, `supportFluffyChat:2463` ×, `support:2464` ×, `possibleByYou:2516`, `newPassphraseDescription:2600` |
-| `lib/l10n/intl_pt_BR.arb` | `inviteText:816`, `newMessageInFluffyChat:973` |
+| `lib/l10n/intl_lv.arb` | `inviteText:518`, `newMessageInFluffyChat:843`, `discover:2067` ×, `signUpGreeting:2463`, `support:2473` ×, `supportFluffyChat:2490` ×, `possibleByYou:2496`, `newPassphraseDescription:2698` |
+| `lib/l10n/intl_nb.arb` | `inviteText:666`, `newMessageInFluffyChat:813`, `discover:1672` ×, `signUpGreeting:2486`, `supportFluffyChat:2506` ×, `support:2507` ×, `possibleByYou:2523`, `newPassphraseDescription:2587` |
+| `lib/l10n/intl_nl.arb` | `inviteText:817`, `newMessageInFluffyChat:974`, `discover:2060` ×, `signUpGreeting:2478`, `supportFluffyChat:2498` ×, `support:2499` ×, `possibleByYou:2513`, `newPassphraseDescription:2599` |
+| `lib/l10n/intl_pl.arb` | `inviteText:729`, `newMessageInFluffyChat:871`, `discover:1962` ×, `signUpGreeting:2443`, `supportFluffyChat:2463` ×, `support:2464` ×, `possibleByYou:2516`, `newPassphraseDescription:2600` |
+| `lib/l10n/intl_pt_BR.arb` | `inviteText:816`, `newMessageInFluffyChat:973`, `discover:2095` × |
 | `lib/l10n/intl_pt_PT.arb` | `inviteText:764`, `newMessageInFluffyChat:921`, `noGoogleServicesWarning:956` |
 | `lib/l10n/intl_ro.arb` | `inviteText:717`, `noGoogleServicesWarning:1083`, `newMessageInFluffyChat:1267` |
-| `lib/l10n/intl_ru.arb` | `inviteText:817`, `newMessageInFluffyChat:965`, `noGoogleServicesWarning:1000`, `signUpGreeting:2423`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2526`, `newPassphraseDescription:2663` |
+| `lib/l10n/intl_ru.arb` | `inviteText:817`, `newMessageInFluffyChat:965`, `noGoogleServicesWarning:1000`, `discover:2078` ×, `signUpGreeting:2423`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2526`, `newPassphraseDescription:2663` |
 | `lib/l10n/intl_sk.arb` | `inviteText:519`, `newMessageInFluffyChat:646`, `noGoogleServicesWarning:661` |
 | `lib/l10n/intl_sr.arb` | `inviteText:769`, `newMessageInFluffyChat:916`, `noGoogleServicesWarning:951` |
-| `lib/l10n/intl_sv.arb` | `inviteText:651`, `newMessageInFluffyChat:798`, `noGoogleServicesWarning:828`, `signUpGreeting:2467`, `supportFluffyChat:2487` ×, `support:2488` ×, `possibleByYou:2497`, `newPassphraseDescription:2581` |
-| `lib/l10n/intl_ta.arb` | `newMessageInFluffyChat:967`, `inviteText:1477`, `signUpGreeting:2471`, `supportFluffyChat:2553` ×, `support:2554` ×, `newPassphraseDescription:2642` |
-| `lib/l10n/intl_tr.arb` | `inviteText:818`, `newMessageInFluffyChat:975` |
-| `lib/l10n/intl_uk.arb` | `inviteText:537`, `newMessageInFluffyChat:664`, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2514` |
-| `lib/l10n/intl_uz.arb` | `inviteText:846`, `newMessageInFluffyChat:1086` |
-| `lib/l10n/intl_zh.arb` | `inviteText:789`, `newMessageInFluffyChat:936`, `noGoogleServicesWarning:971`, `appLockDescription:2110`, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2514`, `newPassphraseDescription:2598` |
-| `lib/l10n/intl_zh_Hant.arb` | `inviteText:688`, `newMessageInFluffyChat:835` |
+| `lib/l10n/intl_sv.arb` | `inviteText:651`, `newMessageInFluffyChat:798`, `noGoogleServicesWarning:828`, `discover:2094` ×, `signUpGreeting:2467`, `supportFluffyChat:2487` ×, `support:2488` ×, `possibleByYou:2497`, `newPassphraseDescription:2581` |
+| `lib/l10n/intl_ta.arb` | `discover:693` ×, `newMessageInFluffyChat:967`, `inviteText:1477`, `signUpGreeting:2471`, `supportFluffyChat:2553` ×, `support:2554` ×, `newPassphraseDescription:2642` |
+| `lib/l10n/intl_tr.arb` | `inviteText:818`, `newMessageInFluffyChat:975`, `discover:2125` × |
+| `lib/l10n/intl_uk.arb` | `inviteText:537`, `newMessageInFluffyChat:664`, `discover:2094` ×, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2514` |
+| `lib/l10n/intl_uz.arb` | `inviteText:846`, `newMessageInFluffyChat:1086`, `discover:2151` × |
+| `lib/l10n/intl_vi.arb` | `discover:495` × |
+| `lib/l10n/intl_zh.arb` | `inviteText:789`, `newMessageInFluffyChat:936`, `noGoogleServicesWarning:971`, `discover:2095` ×, `appLockDescription:2110`, `signUpGreeting:2479`, `supportFluffyChat:2499` ×, `support:2500` ×, `possibleByYou:2514`, `newPassphraseDescription:2598` |
+| `lib/l10n/intl_zh_Hant.arb` | `inviteText:688`, `newMessageInFluffyChat:835`, `discover:1627` × |
 
 ## Внешние сервисы — решение владельца требуется
 
@@ -109,7 +110,7 @@
 ## Конфигурация и лицензии
 
 - В `AppSettingsStringExtension.value` известные старые значения Tildes/FluffyChat заменяются при чтении на Орда; для website/logo/privacy/tos адреса доменов `fluffychat.im` и `fluffy.chat` игнорируются. Это охватывает локальные preferences, web config и MDM, сохраняет собственные значения и не изменяет ключи/хранилище.
-- Сайт, политика и условия остаются пустыми заглушками до назначения владельцем. OIDC получает `null` для отсутствующих необязательных URL; web client URI при отсутствии website берётся из адреса развёрнутого приложения. Выдуманная политика конфиденциальности не добавлялась.
+- Сайт, политика и условия остаются пустыми заглушками до назначения владельцем. OIDC получает `null` для отсутствующих необязательных URL логотипа и документов; обязательный client URI при отсутствии website берётся из адреса развёрнутого web-приложения или репозитория Орды на мобильных платформах. Выдуманная политика конфиденциальности не добавлялась.
 - `LICENSE`, существующие SPDX-заголовки и copyright авторов сохранены. Новые исходники имеют SPDX; новые/заменённые изображения перечислены в отдельном блоке `REUSE.toml` с AGPL-3.0-or-later и Contributors to Орда. Неиспользуемые исторические исходники artwork сохраняют свои исходные атрибуции.
 - Dart-пакет `fluffychat`, все существующие ключи `chat.fluffy.*`, `kz.tildes.chat`, deep-link/OAuth схемы, App Group, pusher ID, Windows installer GUID и техническое имя executable не переименованы.
 - Значение `AppConfig.defaultHomeserver` / fallback `AppSettings.defaultHomeserver`: `herbicide-ninth-reliance.ngrok-free.dev`; `AppSettings.presetHomeserver`: `''`. В этом шаге не изменены.
@@ -133,16 +134,16 @@
 - `flutter gen-l10n` — успешно. В исходном проекте есть отсутствующие переводы, используются существующие fallback; новых пустых строк не добавлено.
 - Проверка всех 59 ARB: нет старого имени/домена в значениях; ICU-параметры сохранены; удалены только ключи кнопок поддержки. Проверены JSON/XML/plist, целостность PNG/ICO, неизменность SPDX, LICENSE, внутренних ключей, адресов сервисов и хешей присланных оригиналов — PASS. Все 100 PNG в assets и платформах успешно декодируются; новые iOS AppIcon — RGB.
 - `git diff --check` с `cr-at-eol` для исходного CRLF Windows resource — PASS. `pubspec.lock` и workflow сборки не менялись.
-- `flutter analyze --no-pub` — 5 ошибок и 0 новых замечаний. Сравнение с исходными Dart-файлами базового коммита в той же среде воспроизводит точно те же 5 ошибок: отсутствуют `OidcClientData`, `registerOidcClient`, `OidcApplicationType` (2 места), `OidcClientInformation` в закреплённом Matrix SDK `355bf1d2d471ef2ab578d83a14a684cea7c07a1c` (13.0.0). Эти API-проблемы не исправлялись в задаче ребрендинга.
+- `flutter analyze --no-pub` — PASS, `No issues found`. В локальной копии закреплённого Matrix SDK `355bf1d2d471ef2ab578d83a14a684cea7c07a1c` отсутствовал один файл динамической регистрации OIDC, хотя он присутствовал в Git index. Это воспроизводило пять ошибок и в исходном, и в изменённом приложении. Недостающий файл восстановлен из того же коммита SDK; версии зависимостей не менялись. После восстановления и исправления обязательного `clientUri` анализ проходит.
 - Добавлены два регрессионных теста `test/orda_branding_test.dart`: чтение старых/собственных настроек и отображение атрибуции со ссылкой в About/LicensePage. Их обычный локальный запуск заблокирован native hook `webcrypto`: не найден CMake. Результат тестов не объявляется успешным. `flutter pub get` получил зависимости и сгенерировал локализации, но его последний этап Windows plugins требует включённого symlink support; настройки Windows не менялись.
 - `reuse lint` — PASS после явного покрытия `fastlane/metadata` (symlink, который при Windows checkout представлен обычным текстовым файлом) существующей общей аннотацией. Лицензии и копирайты есть для всех проверяемых файлов.
-- APK/веб/iOS сборки не запускались: этот запрос — шаг 2а, а исходные ошибки анализатора требуют отдельного исправления. SHA-256 APK и ссылка на новую сборку отсутствуют.
+- Release APK/веб/iOS сборки отдельного workflow не запускались: этот запрос — шаг 2а. SHA-256 release APK отсутствует. Автоматические проверки и debug-сборки PR: https://github.com/tsukixme/messenger/pull/5/checks. Debug-сборки workflow запускаются только после успешных проверок кода.
 
 ## Открытые вопросы владельцу
 
 1. Сохранить, отключить после оценки последствий или заменить перечисленные сервисы FluffyChat? Нужны целевые адреса push, LiveKit/JWT и собственный проект Firebase; отдельно решение по Windows updater и списку homeserver.
 2. Какие адреса назначить сайту, справке, политике и условиям Орды? Сейчас справка ведёт в issues проекта, остальные ссылки скрыты до настройки.
-3. Отдельная задача на совместимость OIDC с закреплённым SDK нужна перед сборкой и проверкой входа. Полноценная сборка и визуальная проверка приложения остаются невыполненными из-за исходной API-проблемы.
+3. Полноценная release-сборка и визуальная проверка входа остаются отдельным следующим шагом. Локальные проблемы анализа в Windows нужно отличать от результатов Linux CI.
 4. Подтверждение цветов темы, если требуется согласовать её с новым логотипом; текущие цвета сохранены.
 
 ## Изменённые файлы
@@ -253,6 +254,7 @@
 - `lib/l10n/intl_tr.arb`
 - `lib/l10n/intl_uk.arb`
 - `lib/l10n/intl_uz.arb`
+- `lib/l10n/intl_vi.arb`
 - `lib/l10n/intl_zh.arb`
 - `lib/l10n/intl_zh_Hant.arb`
 - `lib/pages/bootstrap/view_model/bootstrap_view_model.dart`

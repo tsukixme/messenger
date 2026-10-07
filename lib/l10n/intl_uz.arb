@@ -2148,7 +2148,7 @@
     },
     "incomingMessages": "Kiruvchi xabarlar",
     "stickers": "Stikerlar",
-    "discover": "Kashf etish",
+
     "commandHint_ignore": "Berilgan matriks ID e’tiborga olinmasin",
     "commandHint_unignore": "Berilgan matriks IDni e’tiborsiz qoldirish",
     "noDatabaseEncryption": "Bu platformada ma’lumotlar bazasini shifrlash ishlamaydi",

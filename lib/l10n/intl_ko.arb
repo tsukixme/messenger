@@ -2093,7 +2093,7 @@
     },
     "incomingMessages": "메시지 수신함",
     "stickers": "스티커",
-    "discover": "탐색",
+
     "unreadChatsInApp": "{appname}: {unread}개의 읽지 않은 채팅",
     "@unreadChatsInApp": {
         "type": "String",

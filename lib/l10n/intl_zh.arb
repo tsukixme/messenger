@@ -2092,7 +2092,7 @@
     },
     "incomingMessages": "传入消息",
     "stickers": "贴纸",
-    "discover": "发现",
+
     "commandHint_ignore": "忽略给定的 matrix ID",
     "commandHint_unignore": "取消忽略给定的 matrix ID",
     "unreadChatsInApp": "{appname}: {unread} 未读聊天",

@@ -2092,7 +2092,7 @@
         }
     },
     "stickers": "Figurinhas",
-    "discover": "Explorar",
+
     "incomingMessages": "Mensagens recebidas",
     "unreadChatsInApp": "{appname}: {unread} conversas não lidas",
     "@unreadChatsInApp": {

@@ -2092,7 +2092,7 @@
     },
     "incomingMessages": "Mensaxes recibidas",
     "stickers": "Adhesivos",
-    "discover": "Descubrir",
+
     "commandHint_ignore": "Ignorar o ID matrix indicado",
     "commandHint_unignore": "Non ignorar o ID matrix indicado",
     "unreadChatsInApp": "{appname}: {unread} charlas sen ler",

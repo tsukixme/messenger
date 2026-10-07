@@ -2091,7 +2091,7 @@
         }
     },
     "incomingMessages": "Вхідні повідомлення",
-    "discover": "Огляд",
+
     "stickers": "Наліпки",
     "searchIn": "Пошук у бесіді \"{chat}\"...",
     "@searchIn": {

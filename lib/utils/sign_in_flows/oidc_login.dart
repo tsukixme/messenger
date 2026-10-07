@@ -5,6 +5,7 @@
 
 import 'dart:convert';
 
+import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/config/setting_keys.dart';
 import 'package:fluffychat/utils/matrix_sdk_extensions/oidc_session_json_extension.dart';
 import 'package:fluffychat/utils/platform_infos.dart';
@@ -29,11 +30,10 @@ Future<void> oidcLoginFlow(
       ? Uri.parse(website)
       : kIsWeb
       ? Uri.parse(Uri.base.origin)
-      : null;
+      : Uri.parse(AppConfig.sourceCodeUrl);
   final supportWebPlatform =
       kIsWeb &&
       kReleaseMode &&
-      clientUri != null &&
       clientUri.host.isNotEmpty &&
       redirectUrl.scheme == 'https' &&
       redirectUrl.host.contains(clientUri.host);

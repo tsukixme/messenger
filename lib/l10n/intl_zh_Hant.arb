@@ -1624,7 +1624,7 @@
     "blockListDescription": "你可以封鎖打擾你的使用者。你不會再收到任何從已封鎖使用者發來的訊息或聊天室邀請。",
     "blockedUsers": "已封鎖的使用者",
     "block": "封鎖",
-    "discover": "發現",
+
     "sender": "傳送者",
     "blockUsername": "無視使用者名稱",
     "noBackupWarning": "警告！如果不啟用聊天室備份，您將失去對加密訊息的訪問。強烈建議在登出前先啟用聊天室備份。",
