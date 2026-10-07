@@ -268,9 +268,4 @@ jobs:
           ram-size: 4096M
           sdcard-path-or-size: 4096M
           emulator-options: -no-snapshot-save -no-window -wipe-data -accel on -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: |
-            adb logcat -c
-            adb logcat -v threadtime AndroidRuntime:E flutter:I FlutterJNI:I '*:S' &
-            logcat_pid=$!
-            trap 'kill "$logcat_pid" 2>/dev/null || true' EXIT
-            timeout --signal=INT --kill-after=30s 45m flutter test --verbose integration_test/mobile_test.dart
+          script: bash ./scripts/run_integration_test.sh
