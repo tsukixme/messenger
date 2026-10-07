@@ -60,6 +60,7 @@ void main() {
         ),
       ),
     );
+    await tester.pumpAndSettle();
     await tester.tap(find.text('About'));
     await tester.pumpAndSettle();
     expect(find.text('Орда'), findsOneWidget);
@@ -69,9 +70,19 @@ void main() {
     await tester.tap(find.text('View licenses'));
     await tester.pumpAndSettle();
     expect(find.byType(LicensePage), findsOneWidget);
-    expect(find.text(AppConfig.licenseAttribution), findsOneWidget);
+    final licenses = find.byType(LicensePage);
+    expect(
+      find.descendant(
+        of: licenses,
+        matching: find.text(AppConfig.licenseAttribution),
+      ),
+      findsOneWidget,
+    );
     final link = tester.widget<TextButton>(
-      find.widgetWithText(TextButton, 'GitHub'),
+      find.descendant(
+        of: licenses,
+        matching: find.widgetWithText(TextButton, 'GitHub'),
+      ),
     );
     expect(link.onPressed, isNotNull);
     expect(AppConfig.sourceCodeUrl, 'https://github.com/tsukixme/messenger');
