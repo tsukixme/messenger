@@ -28,7 +28,7 @@
     <uses-sdk
             tools:overrideLibrary="io.wazo.callkeep, net.touchcapture.qr.flutterqr, com.cloudwebrtc.webrtc, org.webrtc, com.it_nomads.fluttersecurestorage, com.pichillilorenzo.flutter_inappwebview, com.example.video_compress, com.otaliastudios.transcoder, com.otaliastudios.opengl, com.kineapps.flutter_file_dialog, com.llfbandit.record, com.pravera.flutter_foreground_task"/>
     <application
-        android:label="Tildes"
+        android:label="Орда"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
         android:allowBackup="false"
@@ -127,6 +127,9 @@
 
         <!-- From flutter_local_notifications package for notification actions -->
         <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
+
+        <meta-data android:name="orda_notification_icon"
+            android:resource="@drawable/orda_notification"/>
 
         <!-- To make notifications available in Android Auto -->
         <meta-data

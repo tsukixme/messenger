@@ -1,8 +1,7 @@
 {
-  "applicationName": "Tildes",
-  "presetHomeserver": "",
+  "applicationName": "Орда",
   "welcomeText": "",
-  "privacyUrl": "https://github.com/krille-chan/fluffychat/blob/main/PRIVACY.md",
+  "privacyPolicy": "",
   "audioRecordingNumChannels": 1,
   "audioRecordingAutoGain": true,
   "audioRecordingEchoCancel": false,

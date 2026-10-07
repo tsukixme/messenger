@@ -815,7 +815,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "inviteText": "{username} sizi FluffyChat'e davet etti.\n1. fluffychat.im adresini ziyaret edin ve uygulamayı kurun \n2. Kaydolun veya oturum açın \n3. Davet bağlantısını açın: \n {link}",
+    "inviteText": "{username} sizi Орда'e davet etti.\n1. Kaydolun veya oturum açın \n2. Davet bağlantısını açın: \n {link}",
     "@inviteText": {
         "type": "String",
         "placeholders": {
@@ -972,7 +972,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "newMessageInFluffyChat": "💬 FluffyChat'te yeni mesaj",
+    "newMessageInFluffyChat": "💬 Орда'te yeni mesaj",
     "@newMessageInFluffyChat": {
         "type": "String",
         "placeholders": {}
@@ -2122,7 +2122,7 @@
             }
         }
     },
-    "discover": "Keşfet",
+
     "incomingMessages": "Gelen mesajlar",
     "verifyOtherUserDescription": "Başka bir kullanıcıyı doğrularsanız, gerçekten kime yazdığınızı bildiğinizden emin olabilirsiniz. 💪\n\nBir doğrulama başlattığınızda, siz ve diğer kullanıcı uygulamada bir açılır pencere görecektir. Orada birbirinizle karşılaştırmanız gereken bir dizi emoji veya sayı göreceksiniz.\n\nBunu yapmanın en iyi yolu buluşmak veya bir görüntülü arama başlatmaktır. 👭",
     "stickers": "Çıkartmalar",

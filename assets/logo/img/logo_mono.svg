@@ -1,0 +1,5 @@
+<!-- SPDX-FileCopyrightText: 2026 Contributors to Орда -->
+<!-- SPDX-License-Identifier: AGPL-3.0-or-later -->
+<svg xmlns="http://www.w3.org/2000/svg" width="108" height="108" viewBox="0 0 108 108">
+  <path fill="white" fill-rule="evenodd" d="M30 26H78Q84 26 84 32V70Q84 76 78 76H44L26 88V32Q26 26 30 26Z M39 48A5 5 0 1 0 49 48A5 5 0 1 0 39 48Z M53 48A5 5 0 1 0 63 48A5 5 0 1 0 53 48Z M67 48A5 5 0 1 0 77 48A5 5 0 1 0 67 48Z"/>
+</svg>

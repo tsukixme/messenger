@@ -25,7 +25,7 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>$(PRODUCT_COPYRIGHT)</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Share your location with your contacts in FluffyChat.</string>
+	<string>Share your location with your contacts in Орда.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

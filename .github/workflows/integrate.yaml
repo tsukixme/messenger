@@ -268,4 +268,4 @@ jobs:
           ram-size: 4096M
           sdcard-path-or-size: 4096M
           emulator-options: -no-snapshot-save -no-window -wipe-data -accel on -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: flutter test integration_test/mobile_test.dart
+          script: bash ./scripts/run_integration_test.sh

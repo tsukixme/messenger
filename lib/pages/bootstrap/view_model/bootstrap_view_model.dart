@@ -283,8 +283,7 @@ class BootstrapViewModel extends ValueNotifier<BootstrapViewModelState> {
     BuildContext context,
   ) async {
     final path = await FilePicker.saveFile(
-      fileName:
-          'FluffyChat-Recovery-Key-${DateTime.now().toIso8601String()}.txt',
+      fileName: 'Orda-Recovery-Key-${DateTime.now().toIso8601String()}.txt',
       bytes: Uint8List.fromList(value.recoveryKey!.codeUnits),
     );
     if (path == null) return;

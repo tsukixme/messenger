@@ -690,7 +690,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "inviteText": "{username} ti ha invitato/a a FluffyChat.\n1. Visita fluffychat.im e installa l'applicazione\n2. Iscriviti o accedi\n3. Apri il collegamento di invito: \n {link}",
+    "inviteText": "{username} ti ha invitato/a a Орда.\n1. Iscriviti o accedi\n2. Apri il collegamento di invito: \n {link}",
     "@inviteText": {
         "type": "String",
         "placeholders": {
@@ -837,7 +837,7 @@
         "type": "String",
         "placeholders": {}
     },
-    "newMessageInFluffyChat": "💬 Nuovo messaggio in FluffyChat",
+    "newMessageInFluffyChat": "💬 Nuovo messaggio in Орда",
     "@newMessageInFluffyChat": {
         "type": "String",
         "placeholders": {}
@@ -2000,7 +2000,7 @@
     "verifyOtherUserDescription": "Se verifichi un altro utente, puoi essere certo di sapere a chi stai realmente scrivendo. 💪\n\nQuando inizi una verifica, tu e l'altro utente vedrete un popup nell'app. Lì vedrai una serie di emoji o numeri che dovrai confrontare tra loro.\n\nIl modo migliore per farlo è incontrarsi o avviare una videochiamata. 👭",
     "verifyOtherDevice": "🔐 Verifica altro dispositivo",
     "verifyOtherDeviceDescription": "Quando verifichi un altro dispositivo, questi dispositivi possono scambiarsi le chiavi, aumentando la tua sicurezza complessiva. 💪 Quando inizi una verifica, apparirà un popup nell'app su entrambi i dispositivi. Lì vedrai una serie di emoji o numeri che dovrai confrontare tra loro. È meglio avere entrambi i dispositivi a portata di mano prima di iniziare la verifica. 🤳",
-    "discover": "Scopri",
+
     "leaveEmptyToClearStatus": "Lascia vuoto per cancellare il tuo stato.",
     "incomingMessages": "Messaggi in arrivo",
     "noChatsFoundHere": "Nessuna chat trovata. Inizia una nuova chat con qualcuno usando il pulsante qui sotto. ⤵️",
@@ -2541,7 +2541,7 @@
         "description": "This should be a very short string because there is not much space in the button!"
     },
     "createNewChat": "Crea una nuova chat",
-    "supportFluffyChat": "Supporta FluffyChat",
+
     "setLowPriority": "Imposta priorità bassa",
     "unsetLowPriority": "Rimuovi priorità bassa",
     "playSoundOnNotification": "Riproduci suono per le notifiche",

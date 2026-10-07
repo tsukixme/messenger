@@ -52,7 +52,7 @@ Future<DatabaseApi> flutterMatrixSdkDatabaseBuilder(String clientName) async {
 Future<Directory?> getFileStorageLocation() async {
   try {
     late final Directory temporaryDirectory;
-    if (PlatformInfos.isIOS) {
+    if (PlatformInfos.isIOS && !AppConfig.iosDemo) {
       final containerPath = await PathProviderFoundation().getContainerPath(
         appGroupIdentifier: AppConfig.iosAppGroup,
       );
@@ -123,7 +123,7 @@ Future<MatrixSdkDatabase> _constructDatabase(String clientName) async {
 }
 
 Future<String> _getDatabaseDirectory() async {
-  if (PlatformInfos.isIOS) {
+  if (PlatformInfos.isIOS && !AppConfig.iosDemo) {
     final containerPath = await PathProviderFoundation().getContainerPath(
       appGroupIdentifier: AppConfig.iosAppGroup,
     );
@@ -133,7 +133,7 @@ Future<String> _getDatabaseDirectory() async {
     }
     return containerPath;
   }
-  if (PlatformInfos.isMacOS) {
+  if (PlatformInfos.isMacOS || PlatformInfos.isIOS) {
     return (await getLibraryDirectory()).path;
   }
   return (await getApplicationSupportDirectory()).path;

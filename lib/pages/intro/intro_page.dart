@@ -62,17 +62,18 @@ class IntroPage extends StatelessWidget {
                   ],
                 ),
               ),
-              PopupMenuItem(
-                onTap: () => launchUrlString(AppSettings.privacyPolicy.value),
-                child: Row(
-                  mainAxisSize: .min,
-                  spacing: 12,
-                  children: [
-                    const Icon(Icons.privacy_tip_outlined),
-                    Text(L10n.of(context).privacy),
-                  ],
+              if (AppSettings.privacyPolicy.value.isNotEmpty)
+                PopupMenuItem(
+                  onTap: () => launchUrlString(AppSettings.privacyPolicy.value),
+                  child: Row(
+                    mainAxisSize: .min,
+                    spacing: 12,
+                    children: [
+                      const Icon(Icons.privacy_tip_outlined),
+                      Text(L10n.of(context).privacy),
+                    ],
+                  ),
                 ),
-              ),
               PopupMenuItem(
                 onTap: () => PlatformInfos.showDialog(context),
                 child: Row(
@@ -117,7 +118,7 @@ class IntroPage extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(128),
                                 child: Image.asset(
-                                  './assets/logo/mini/logo_mini.png',
+                                  'assets/logo/mini/logo_mini.png',
                                   width: 128,
                                   height: 128,
                                 ),

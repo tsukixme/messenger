@@ -26,7 +26,11 @@ abstract class UpdateNotifier {
   /// displays a banner with a download link. Only for Windows, as all other
   /// platforms get updated by their store or package manager.
   static Future<void> showUpdateAvailableBanner(BuildContext context) async {
-    if (!PlatformInfos.isWindows || !AppSettings.checkForUpdates.value) return;
+    if (AppConfig.latestReleaseApiUrl.isEmpty ||
+        !PlatformInfos.isWindows ||
+        !AppSettings.checkForUpdates.value) {
+      return;
+    }
 
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final l10n = L10n.of(context);
@@ -101,13 +105,7 @@ abstract class UpdateNotifier {
           barrierDismissible: true,
           context: context,
           builder: (context) => AlertDialog(
-            title: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 256),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(AppConfig.borderRadius / 2),
-                child: Image.asset('assets/logo/mini/banner.png'),
-              ),
-            ),
+            title: Text(AppSettings.applicationName.value),
             content: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 256),
               child: Column(
@@ -127,27 +125,6 @@ abstract class UpdateNotifier {
               ),
             ),
             actions: [
-              AdaptiveDialogAction(
-                bigButtons: true,
-                targetPlatform: TargetPlatform.android,
-                onPressed: () => launchUrlString(AppConfig.helpUrl),
-                child: Row(
-                  mainAxisSize: .min,
-                  spacing: 4,
-                  children: [
-                    Icon(
-                      Icons.favorite,
-                      color: Theme.of(context).colorScheme.error,
-                    ),
-                    Text(
-                      l10n.support,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.error,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               AdaptiveDialogAction(
                 bigButtons: true,
                 targetPlatform: TargetPlatform.android,
